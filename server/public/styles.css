@@ -1,0 +1,20 @@
+.hidden {
+  display: none;
+}
+
+.start-text {
+  padding-top: 1rem;
+  text-align: center;
+  font-family: "Lucida Grande", sans-serif;
+  font-weight: bolder;
+}
+
+.start-button {
+  font-family: "Lucida Grande", sans-serif;
+  height: 2.5rem;
+  width: 17rem;
+}
+
+.start-button-container {
+  text-align: center;
+}
