@@ -15,7 +15,7 @@ export default class StartPage extends React.Component {
     })
       .then(res => res.json())
       .then(workoutData => {
-        window.location.hash = `#workouts?workoutid=${workoutData.workoutId}`;
+        window.location.hash = `#workouts?workoutId=${workoutData.workoutId}`;
       })
       .catch(err => console.error(err));
   }
