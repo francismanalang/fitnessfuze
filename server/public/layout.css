@@ -1,0 +1,23 @@
+.exercise-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: "Lucida Grande", sans-serif;
+  background-color: black;
+  color: white;
+  height: 3.5rem;
+  width: 100%;
+}
+
+.box-padding {
+  display: flex;
+  justify-content: center;
+  width: 90%;
+  padding-bottom: 1rem;
+}
+
+@media screen and (min-width: 768px) {
+  .exercise-container {
+    width: 50%;
+  }
+}
