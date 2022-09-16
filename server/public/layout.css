@@ -10,14 +10,17 @@
 }
 
 .box-padding {
+  border: 2px solid black;
   display: flex;
   justify-content: center;
+  flex-direction: column;
+  text-align: center;
   width: 90%;
   padding-bottom: 1rem;
 }
 
 @media screen and (min-width: 768px) {
-  .exercise-container {
-    width: 50%;
+  .box-padding {
+    width: 40%;
   }
 }

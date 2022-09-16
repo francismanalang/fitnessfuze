@@ -3,10 +3,10 @@ import React from 'react';
 export default class StartPage extends React.Component {
   constructor(props) {
     super(props);
-    this.starkWorkoutClick = this.starkWorkoutClick.bind(this);
+    this.startWorkoutClick = this.startWorkoutClick.bind(this);
   }
 
-  starkWorkoutClick() {
+  startWorkoutClick() {
     fetch('/workouts/start', {
       method: 'POST',
       headers: {
@@ -25,7 +25,7 @@ export default class StartPage extends React.Component {
       <>
         <h1 className='start-text'>Start Workout</h1>
         <div className='start-button-container'>
-          <button type="button" className="btn btn-primary start-button" onClick={this.starkWorkoutClick}>Begin a new workout</button>
+          <button type="button" className="btn btn-primary start-button" onClick={this.startWorkoutClick}>Begin a new workout</button>
         </div>
       </>
     );
