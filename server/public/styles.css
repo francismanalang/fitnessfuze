@@ -16,11 +16,12 @@
 }
 
 .exercise-padding {
-  padding-top: 1rem;
+  padding: 0.5rem 0.25rem;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
+  width: 100%;
 }
 
 .exercise-name {
@@ -30,4 +31,41 @@
 
 .exercise-name-input {
   width: 16.5rem;
+}
+
+.col-full {
+  flex-basis: 100%;
+}
+
+.row {
+  display: flex;
+}
+
+.header-container {
+  padding-top: 0.75rem;
+  display: flex;
+  justify-content: space-around;
+  font-family: "Lucida Grande", sans-serif;
+  font-weight: bolder;
+}
+
+.input-container {
+  padding-right: 2rem;
+  padding-top: 0.5rem;
+  display: flex;
+  justify-content: space-around;
+  font-family: "Lucida Grande", sans-serif;
+  font-weight: bolder;
+  margin: 0 0.8rem;
+}
+
+.number-input {
+  width: 3.25rem;
+  background-color: #d9d9d9;
+  border: none;
+  text-align: center;
+}
+
+.number-input-container {
+  padding: 0;
 }
