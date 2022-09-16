@@ -15,7 +15,7 @@ export default class AddExercisePage extends React.Component {
     this.handleClick = this.handleClick.bind(this);
     this.handleRepsChange = this.handleRepsChange.bind(this);
     this.handleWeightChange = this.handleWeightChange.bind(this);
-    this.handleIconChange = this.handleIconChange.bind(this);
+    this.handleCompletedStatusChange = this.handleCompletedStatusChange.bind(this);
   }
 
   handleExerciseNameChange(event) {
@@ -24,25 +24,23 @@ export default class AddExercisePage extends React.Component {
 
   handleRepsChange(index, event) {
     const dataCopy = Object.assign({}, this.state.data);
-    dataCopy.exercises[index].reps = event.target.value;
+    dataCopy.exercises = dataCopy.exercises.slice();
+    dataCopy.exercises[index] = Object.assign({}, dataCopy.exercises[index], { reps: event.target.value });
     this.setState({ data: dataCopy });
   }
 
   handleWeightChange(index, event) {
     const dataCopy = Object.assign({}, this.state.data);
-    dataCopy.exercises[index].weight = event.target.value;
+    dataCopy.exercises = dataCopy.exercises.slice();
+    dataCopy.exercises[index] = Object.assign({}, dataCopy.exercises[index], { weight: event.target.value });
     this.setState({ data: dataCopy });
   }
 
-  handleIconChange(index, event) {
+  handleCompletedStatusChange(index, event) {
     const dataCopy = Object.assign({}, this.state.data);
-    dataCopy.exercises[index].isCompleted = !dataCopy.exercises[index].isCompleted;
+    dataCopy.exercises = dataCopy.exercises.slice();
+    dataCopy.exercises[index] = Object.assign({}, dataCopy.exercises[index], { isCompleted: !dataCopy.exercises[index].isCompleted });
     this.setState({ data: dataCopy });
-    if (!this.state.data.exercises[index].isCompleted) {
-      event.target.className = 'fa-regular fa-circle-check fa-lg';
-    } else {
-      event.target.className = 'fa-solid fa-circle-check fa-lg';
-    }
   }
 
   handleSubmit(event) {
@@ -71,8 +69,11 @@ export default class AddExercisePage extends React.Component {
   }
 
   render() {
-    const { exercises } = this.state;
+    const { exercises, data } = this.state;
     const allExercises = exercises.map((exercise, index) => {
+      const iconChange = data.exercises[index].isCompleted
+        ? 'solid'
+        : 'regular';
       return (
         <div key={index} className='exercise-padding'>
           <div className='box-padding'>
@@ -101,7 +102,7 @@ export default class AddExercisePage extends React.Component {
                           <input onChange={event => this.handleWeightChange(index, event)} className='number-input' type="number" name="weight" id="weight" value={this.state.data.exercises[index].weight} />
                         </div>
                       </span>
-                      <span><i className='fa-regular fa-circle-check fa-lg' onClick={event => this.handleIconChange(index, event)}></i></span>
+                      <span><i className={`fa-${iconChange} fa-circle-check fa-lg`} onClick={event => this.handleCompletedStatusChange(index, event)}></i></span>
                     </div>
                   </div>
                 </div>
