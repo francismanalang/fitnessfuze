@@ -16,31 +16,55 @@ export default class AddExercisePage extends React.Component {
     this.handleRepsChange = this.handleRepsChange.bind(this);
     this.handleWeightChange = this.handleWeightChange.bind(this);
     this.handleCompletedStatusChange = this.handleCompletedStatusChange.bind(this);
+    this.handleAddSet = this.handleAddSet.bind(this);
   }
 
   handleExerciseNameChange(event) {
     this.setState({ exerciseName: event.target.value });
   }
 
-  handleRepsChange(index, event) {
+  handleRepsChange(exerciseIndex, setIndex, event) {
     const dataCopy = Object.assign({}, this.state.data);
     dataCopy.exercises = dataCopy.exercises.slice();
-    dataCopy.exercises[index] = Object.assign({}, dataCopy.exercises[index], { reps: event.target.value });
+    dataCopy.exercises[exerciseIndex].sets = dataCopy.exercises[exerciseIndex].sets.slice();
+    dataCopy.exercises[exerciseIndex].sets[setIndex] = Object.assign({}, dataCopy.exercises[exerciseIndex].sets[setIndex], { reps: event.target.value });
     this.setState({ data: dataCopy });
   }
 
-  handleWeightChange(index, event) {
+  handleWeightChange(exerciseIndex, setIndex, event) {
     const dataCopy = Object.assign({}, this.state.data);
     dataCopy.exercises = dataCopy.exercises.slice();
-    dataCopy.exercises[index] = Object.assign({}, dataCopy.exercises[index], { weight: event.target.value });
+    dataCopy.exercises[exerciseIndex].sets = dataCopy.exercises[exerciseIndex].sets.slice();
+    dataCopy.exercises[exerciseIndex].sets[setIndex] = Object.assign({}, dataCopy.exercises[exerciseIndex].sets[setIndex], { weight: event.target.value });
     this.setState({ data: dataCopy });
   }
 
-  handleCompletedStatusChange(index, event) {
+  handleCompletedStatusChange(exerciseIndex, setIndex, event) {
     const dataCopy = Object.assign({}, this.state.data);
     dataCopy.exercises = dataCopy.exercises.slice();
-    dataCopy.exercises[index] = Object.assign({}, dataCopy.exercises[index], { isCompleted: !dataCopy.exercises[index].isCompleted });
+    dataCopy.exercises[exerciseIndex].sets = dataCopy.exercises[exerciseIndex].sets.slice();
+    dataCopy.exercises[exerciseIndex].sets[setIndex] = Object.assign({}, dataCopy.exercises[exerciseIndex].sets[setIndex], { isCompleted: !dataCopy.exercises[exerciseIndex].sets[setIndex].isCompleted });
     this.setState({ data: dataCopy });
+  }
+
+  handleAddSet(exerciseIndex, event) {
+    const setArray =
+      {
+        isCompleted: false,
+        weight: 0,
+        reps: 0
+      };
+    const updatedDataCopy = this.state.exercises[exerciseIndex].sets.concat(setArray);
+    this.setState(
+      {
+        data: {
+          exercises: [
+            {
+              sets: updatedDataCopy
+            }
+          ]
+        }
+      });
   }
 
   handleSubmit(event) {
@@ -52,13 +76,18 @@ export default class AddExercisePage extends React.Component {
       return;
     }
     const updatedExerciseCopy = this.state.exercises.concat(this.state.exerciseName);
-    const updatedDataCopy = this.state.data.exercises.concat({
-      name: this.state.exerciseName,
-      weight: 0,
-      reps: 0,
-      setNumber: 1,
-      isCompleted: false
-    });
+    const updatedDataCopy = this.state.data.exercises.concat(
+      {
+        name: this.state.exerciseName,
+        sets: [
+          {
+            isCompleted: false,
+            weight: 0,
+            reps: 0
+          }
+        ]
+      }
+    );
     this.setState({
       exerciseName: '',
       exercises: updatedExerciseCopy,
@@ -70,12 +99,30 @@ export default class AddExercisePage extends React.Component {
 
   render() {
     const { exercises, data } = this.state;
-    const allExercises = exercises.map((exercise, index) => {
-      const iconChange = data.exercises[index].isCompleted
-        ? 'solid'
-        : 'regular';
+    const allExercises = exercises.map((exercise, exerciseIndex) => {
+      const allSets = data.exercises[exerciseIndex].sets.map((set, setIndex) => {
+        const iconChange = data.exercises[exerciseIndex].sets[setIndex].isCompleted
+          ? 'solid'
+          : 'regular';
+        return (
+          <div key={setIndex} className='input-container sets-padding'>
+            <span>{setIndex + 1}</span>
+            <span>
+              <div className='reps-padding'>
+                <input onChange={event => this.handleRepsChange(exerciseIndex, setIndex, event)} className='number-input' type="number" name="reps" id="reps" value={this.state.data.exercises[exerciseIndex].sets[setIndex].reps} />
+              </div>
+            </span>
+            <span>
+              <div className='weight-padding'>
+                <input onChange={event => this.handleWeightChange(exerciseIndex, setIndex, event)} className='number-input' type="number" name="weight" id="weight" value={this.state.data.exercises[exerciseIndex].sets[setIndex].weight} />
+              </div>
+            </span>
+            <span className='icon-padding'><i className={`fa-${iconChange} fa-circle-check fa-lg`} onClick={event => this.handleCompletedStatusChange(exerciseIndex, setIndex, event)}></i></span>
+          </div>
+        );
+      });
       return (
-        <div key={index} className='exercise-padding'>
+        <div key={exerciseIndex} className='exercise-padding'>
           <div className='box-padding'>
             <div className='exercise-container'>
               <p className='exercise-name'>{exercise}</p>
@@ -87,22 +134,12 @@ export default class AddExercisePage extends React.Component {
                     <div className='header-container'>
                       <span>Sets</span>
                       <span>Reps</span>
-                      <span>lbs</span>
+                      <span>Weight</span>
                       <span>Completed</span>
                     </div>
-                    <div className='input-container'>
-                      <span>{this.state.data.exercises[index].setNumber}</span>
-                      <span>
-                        <div className='number-input-container'>
-                          <input onChange={event => this.handleRepsChange(index, event)} className='number-input' type="number" name="reps" id="reps" value={this.state.data.exercises[index].reps} />
-                        </div>
-                      </span>
-                      <span>
-                        <div className='number-input-container'>
-                          <input onChange={event => this.handleWeightChange(index, event)} className='number-input' type="number" name="weight" id="weight" value={this.state.data.exercises[index].weight} />
-                        </div>
-                      </span>
-                      <span><i className={`fa-${iconChange} fa-circle-check fa-lg`} onClick={event => this.handleCompletedStatusChange(index, event)}></i></span>
+                    {allSets}
+                    <div className='add-set-container'>
+                      <button type='button' className='add-set-button' onClick={event => this.handleAddSet(exerciseIndex, event)}>Add set</button>
                     </div>
                   </div>
                 </div>
