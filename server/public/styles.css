@@ -101,3 +101,11 @@
   background-color: #0d6efd;
   color: white;
 }
+
+.select-tag {
+  border: none;
+  font-family: "Lucida Grande", sans-serif;
+  font-weight: bolder;
+  width: 3.25rem;
+  text-align: center;
+}

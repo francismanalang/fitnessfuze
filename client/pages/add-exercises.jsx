@@ -125,7 +125,12 @@ export default class AddExercisePage extends React.Component {
                     <div className='header-container'>
                       <span>Sets</span>
                       <span>Reps</span>
-                      <span>Weight</span>
+                      <span>
+                        <select className='select-tag'>
+                          <option value="Pounds">lbs</option>
+                          <option value="Kilos">Kg</option>
+                        </select>
+                      </span>
                       <span>Completed</span>
                     </div>
                     {allSets}
