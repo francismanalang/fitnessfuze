@@ -4,8 +4,8 @@ export default class AddExercisePage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      workoutId: this.props.workoutId,
       exerciseName: '',
-      exercises: [],
       data: {
         exercises: []
       }
@@ -48,23 +48,15 @@ export default class AddExercisePage extends React.Component {
   }
 
   handleAddSet(exerciseIndex, event) {
-    const setArray =
-      {
-        isCompleted: false,
-        weight: 0,
-        reps: 0
-      };
-    const updatedDataCopy = this.state.exercises[exerciseIndex].sets.concat(setArray);
-    this.setState(
-      {
-        data: {
-          exercises: [
-            {
-              sets: updatedDataCopy
-            }
-          ]
-        }
-      });
+    const setArray = [{
+      isCompleted: false,
+      weight: 0,
+      reps: 0
+    }];
+    const dataCopy = Object.assign({}, this.state.data);
+    dataCopy.exercises = dataCopy.exercises.slice();
+    dataCopy.exercises[exerciseIndex] = Object.assign({}, dataCopy.exercises[exerciseIndex], { sets: dataCopy.exercises[exerciseIndex].sets.concat(setArray) });
+    this.setState({ data: dataCopy });
   }
 
   handleSubmit(event) {
@@ -75,8 +67,8 @@ export default class AddExercisePage extends React.Component {
     if (this.state.exerciseName === '') {
       return;
     }
-    const updatedExerciseCopy = this.state.exercises.concat(this.state.exerciseName);
-    const updatedDataCopy = this.state.data.exercises.concat(
+    const updatedDataCopy = [...this.state.data.exercises];
+    updatedDataCopy.unshift(
       {
         name: this.state.exerciseName,
         sets: [
@@ -90,7 +82,6 @@ export default class AddExercisePage extends React.Component {
     );
     this.setState({
       exerciseName: '',
-      exercises: updatedExerciseCopy,
       data: {
         exercises: updatedDataCopy
       }
@@ -98,8 +89,8 @@ export default class AddExercisePage extends React.Component {
   }
 
   render() {
-    const { exercises, data } = this.state;
-    const allExercises = exercises.map((exercise, exerciseIndex) => {
+    const { data, workoutId } = this.state;
+    const allExercises = data.exercises.map((exercise, exerciseIndex) => {
       const allSets = data.exercises[exerciseIndex].sets.map((set, setIndex) => {
         const iconChange = data.exercises[exerciseIndex].sets[setIndex].isCompleted
           ? 'solid'
@@ -125,7 +116,7 @@ export default class AddExercisePage extends React.Component {
         <div key={exerciseIndex} className='exercise-padding'>
           <div className='box-padding'>
             <div className='exercise-container'>
-              <p className='exercise-name'>{exercise}</p>
+              <p className='exercise-name'>{exercise.name}</p>
             </div>
             <form>
               <div className='sets-container'>
@@ -151,7 +142,7 @@ export default class AddExercisePage extends React.Component {
     });
     return (
       <>
-        <h1 className='start-text'>Workout #{this.props.workoutId}</h1>
+        <h1 className='start-text'>Workout #{workoutId}</h1>
         <div className='start-button-container'>
           <button type="button" className="btn btn-primary start-button" data-bs-toggle="modal" data-bs-target="#exerciseNameModal">Add an exercise</button>
         </div>
