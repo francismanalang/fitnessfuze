@@ -5,18 +5,18 @@ export default class AddExercisePage extends React.Component {
     super(props);
     this.state = {
       workoutId: this.props.workoutId,
+      saveModalOpen: false,
       exerciseName: '',
-      data: {
-        exercises: []
-      }
+      exercises: []
     };
-    this.handleExerciseNameChange = this.handleExerciseNameChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleClick = this.handleClick.bind(this);
-    this.handleRepsChange = this.handleRepsChange.bind(this);
-    this.handleWeightChange = this.handleWeightChange.bind(this);
     this.handleCompletedStatusChange = this.handleCompletedStatusChange.bind(this);
+    this.handleExerciseNameChange = this.handleExerciseNameChange.bind(this);
+    this.handleWeightChange = this.handleWeightChange.bind(this);
+    this.handleRepsChange = this.handleRepsChange.bind(this);
+    this.handleSaveModal = this.handleSaveModal.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
     this.handleAddSet = this.handleAddSet.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
 
   handleExerciseNameChange(event) {
@@ -24,27 +24,28 @@ export default class AddExercisePage extends React.Component {
   }
 
   handleRepsChange(exerciseIndex, setIndex, event) {
-    const dataCopy = Object.assign({}, this.state.data);
-    dataCopy.exercises = dataCopy.exercises.slice();
-    dataCopy.exercises[exerciseIndex].sets = dataCopy.exercises[exerciseIndex].sets.slice();
-    dataCopy.exercises[exerciseIndex].sets[setIndex] = Object.assign({}, dataCopy.exercises[exerciseIndex].sets[setIndex], { reps: event.target.value });
-    this.setState({ data: dataCopy });
+    const exercisesCopy = Object.assign([], this.state.exercises);
+    exercisesCopy[exerciseIndex].sets = exercisesCopy[exerciseIndex].sets.slice();
+    exercisesCopy[exerciseIndex].sets[setIndex] = Object.assign({}, exercisesCopy[exerciseIndex].sets[setIndex], { reps: event.target.value });
+    this.setState({ exercises: exercisesCopy });
   }
 
   handleWeightChange(exerciseIndex, setIndex, event) {
-    const dataCopy = Object.assign({}, this.state.data);
-    dataCopy.exercises = dataCopy.exercises.slice();
-    dataCopy.exercises[exerciseIndex].sets = dataCopy.exercises[exerciseIndex].sets.slice();
-    dataCopy.exercises[exerciseIndex].sets[setIndex] = Object.assign({}, dataCopy.exercises[exerciseIndex].sets[setIndex], { weight: event.target.value });
-    this.setState({ data: dataCopy });
+    const exercisesCopy = Object.assign([], this.state.exercises);
+    exercisesCopy[exerciseIndex].sets = exercisesCopy[exerciseIndex].sets.slice();
+    exercisesCopy[exerciseIndex].sets[setIndex] = Object.assign({}, exercisesCopy[exerciseIndex].sets[setIndex], { weight: event.target.value });
+    this.setState({ exercises: exercisesCopy });
   }
 
   handleCompletedStatusChange(exerciseIndex, setIndex, event) {
-    const dataCopy = Object.assign({}, this.state.data);
-    dataCopy.exercises = dataCopy.exercises.slice();
-    dataCopy.exercises[exerciseIndex].sets = dataCopy.exercises[exerciseIndex].sets.slice();
-    dataCopy.exercises[exerciseIndex].sets[setIndex] = Object.assign({}, dataCopy.exercises[exerciseIndex].sets[setIndex], { isCompleted: !dataCopy.exercises[exerciseIndex].sets[setIndex].isCompleted });
-    this.setState({ data: dataCopy });
+    const exercisesCopy = Object.assign([], this.state.exercises);
+    exercisesCopy[exerciseIndex].sets = exercisesCopy[exerciseIndex].sets.slice();
+    exercisesCopy[exerciseIndex].sets[setIndex] = Object.assign([], exercisesCopy[exerciseIndex].sets[setIndex], { isCompleted: !exercisesCopy[exerciseIndex].sets[setIndex].isCompleted });
+    this.setState({ exercises: exercisesCopy });
+  }
+
+  handleSaveModal() {
+    this.setState({ saveModalOpen: !this.state.saveModalOpen });
   }
 
   handleAddSet(exerciseIndex, event) {
@@ -53,10 +54,9 @@ export default class AddExercisePage extends React.Component {
       weight: 0,
       reps: 0
     }];
-    const dataCopy = Object.assign({}, this.state.data);
-    dataCopy.exercises = dataCopy.exercises.slice();
-    dataCopy.exercises[exerciseIndex] = Object.assign({}, dataCopy.exercises[exerciseIndex], { sets: dataCopy.exercises[exerciseIndex].sets.concat(setArray) });
-    this.setState({ data: dataCopy });
+    const exercisesCopy = Object.assign([], this.state.exercises);
+    exercisesCopy[exerciseIndex] = Object.assign([], exercisesCopy[exerciseIndex], { sets: exercisesCopy[exerciseIndex].sets.concat(setArray) });
+    this.setState({ exercises: exercisesCopy });
   }
 
   handleSubmit(event) {
@@ -67,11 +67,12 @@ export default class AddExercisePage extends React.Component {
     if (this.state.exerciseName === '') {
       return;
     }
-    const updatedDataCopy = [...this.state.data.exercises];
-    updatedDataCopy.unshift(
+    const updatedExercisesCopy = [...this.state.exercises];
+    updatedExercisesCopy.unshift(
       {
         name: this.state.exerciseName,
-        sets: [
+        sets:
+        [
           {
             isCompleted: false,
             weight: 0,
@@ -82,17 +83,21 @@ export default class AddExercisePage extends React.Component {
     );
     this.setState({
       exerciseName: '',
-      data: {
-        exercises: updatedDataCopy
-      }
+      exercises: updatedExercisesCopy
     });
   }
 
   render() {
-    const { data, workoutId } = this.state;
-    const allExercises = data.exercises.map((exercise, exerciseIndex) => {
-      const allSets = data.exercises[exerciseIndex].sets.map((set, setIndex) => {
-        const iconChange = data.exercises[exerciseIndex].sets[setIndex].isCompleted
+    const { exercises, workoutId, saveModalOpen } = this.state;
+    const saveButton = exercises.length > 0
+      ? ''
+      : 'hidden';
+    const modalToggle = saveModalOpen
+      ? ''
+      : 'hidden';
+    const allExercises = exercises.map((exercise, exerciseIndex) => {
+      const allSets = exercises[exerciseIndex].sets.map((set, setIndex) => {
+        const iconChange = exercises[exerciseIndex].sets[setIndex].isCompleted
           ? 'solid'
           : 'regular';
         return (
@@ -100,12 +105,12 @@ export default class AddExercisePage extends React.Component {
             <span>{setIndex + 1}</span>
             <span>
               <div className='reps-padding'>
-                <input onChange={event => this.handleRepsChange(exerciseIndex, setIndex, event)} className='number-input' type="number" name="reps" id="reps" value={this.state.data.exercises[exerciseIndex].sets[setIndex].reps} />
+                <input onChange={event => this.handleRepsChange(exerciseIndex, setIndex, event)} className='number-input' type="number" name="reps" id="reps" value={exercises[exerciseIndex].sets[setIndex].reps} />
               </div>
             </span>
             <span>
               <div className='weight-padding'>
-                <input onChange={event => this.handleWeightChange(exerciseIndex, setIndex, event)} className='number-input' type="number" name="weight" id="weight" value={this.state.data.exercises[exerciseIndex].sets[setIndex].weight} />
+                <input onChange={event => this.handleWeightChange(exerciseIndex, setIndex, event)} className='number-input' type="number" name="weight" id="weight" value={exercises[exerciseIndex].sets[setIndex].weight} />
               </div>
             </span>
             <span className='icon-padding'><i className={`fa-${iconChange} fa-circle-check fa-lg`} onClick={event => this.handleCompletedStatusChange(exerciseIndex, setIndex, event)}></i></span>
@@ -148,11 +153,14 @@ export default class AddExercisePage extends React.Component {
     return (
       <>
         <h1 className='start-text'>Workout #{workoutId}</h1>
-        <div className='start-button-container'>
-          <button type="button" className="btn btn-primary start-button" data-bs-toggle="modal" data-bs-target="#exerciseNameModal">Add an exercise</button>
+        <div className='exercises-button-container'>
+          <button type="button" className="btn btn-primary exercises-button" data-bs-toggle="modal" data-bs-target="#exerciseNameModal">Add an exercise</button>
         </div>
         <div className='exercise-padding'>
           {allExercises}
+        </div>
+        <div className={`save-button-container ${saveButton}`}>
+          <button type='button' className='btn btn-primary exercises-button' onClick={this.handleSaveModal}>Save Workout</button>
         </div>
         <form onSubmit={this.handleSubmit}>
           <div className="modal modal-sm fade" id="exerciseNameModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -175,6 +183,17 @@ export default class AddExercisePage extends React.Component {
             </div>
           </div>
         </form>
+        <div className={`dark-background ${modalToggle}`}>
+          <div className='centering-div'>
+            <div className='modal-container'>
+              <p className='save-modal-text'>Are you sure you want to save this workout? Incompleted sets will not be saved.</p>
+              <div className='modal-button-container'>
+                <button className='modal-cancel-button' onClick={this.handleSaveModal}>Cancel</button>
+                <button className='modal-confirm-button'>Confirm</button>
+              </div>
+            </div>
+          </div>
+        </div>
       </>
     );
   }
