@@ -39,7 +39,7 @@ app.get('/workouts/start/:workoutId', (req, res, next) => {
         });
         return;
       }
-      res.status(201).json(data.exercises);
+      res.status(200).json(data.exercises);
     })
     .catch(err => next(err));
 });
@@ -87,7 +87,7 @@ app.put('/workouts/start/:workoutId', (req, res, next) => {
   db.query(sql, params)
     .then(result => {
       const [workout] = result.rows;
-      res.status(201).json(workout);
+      res.status(200).json(workout);
     })
     .catch(err => next(err));
 });
