@@ -23,10 +23,10 @@ export default class StartPage extends React.Component {
   render() {
     return (
       <>
-        <h1 className='start-text'>Start Workout</h1>
-        <div className='start-button-container'>
-          <button type="button" className="btn btn-primary start-button" onClick={this.startWorkoutClick}>Begin a new workout</button>
-        </div>
+      <div className='start-container'>
+        <h1 className='start-text'>Start Workout:</h1>
+        <button type="button" className="btn btn-primary exercises-button" onClick={this.startWorkoutClick}>Begin a new workout</button>
+      </div>
       </>
     );
   }

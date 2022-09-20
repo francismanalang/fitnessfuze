@@ -4,9 +4,26 @@
 
 .start-text {
   padding-top: 1rem;
+  font-family: "Lucida Grande", sans-serif;
+  font-weight: bold;
+  font-size: 2rem;
+}
+
+.workout-text {
+  padding-top: 1rem;
   text-align: center;
   font-family: "Lucida Grande", sans-serif;
-  font-weight: bolder;
+  font-weight: bold;
+  font-size: 2rem;
+}
+
+.start-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  gap: 0.5rem;
 }
 
 .exercises-button {

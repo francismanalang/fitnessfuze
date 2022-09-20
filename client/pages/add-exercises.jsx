@@ -12,11 +12,38 @@ export default class AddExercisePage extends React.Component {
     this.handleCompletedStatusChange = this.handleCompletedStatusChange.bind(this);
     this.handleExerciseNameChange = this.handleExerciseNameChange.bind(this);
     this.handleWeightChange = this.handleWeightChange.bind(this);
+    this.handleSaveWorkout = this.handleSaveWorkout.bind(this);
     this.handleRepsChange = this.handleRepsChange.bind(this);
     this.handleSaveModal = this.handleSaveModal.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleAddSet = this.handleAddSet.bind(this);
     this.handleClick = this.handleClick.bind(this);
+  }
+
+  componentDidMount() {
+    const { workoutId } = this.state;
+    fetch(`/workouts/start/${workoutId}`)
+      .then(res => res.json())
+      .then(exercises => this.setState({ exercises }))
+      .catch(err => console.error('Fetch failed!', err));
+  }
+
+  handleSaveWorkout() {
+    const { workoutId, exercises } = this.state;
+    const filteredExcercises = exercises.map(exercise => { return { ...exercise, sets: exercise.sets.filter(set => set.isCompleted === true) }; });
+    fetch(`/workouts/start/${workoutId}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ exercises: filteredExcercises })
+    })
+      .then(res => res.json())
+      .then(data => {
+        this.setState({ exercises: [] });
+        window.location.hash = '';
+      })
+      .catch(err => console.error('Fetch failed during PUT', err));
   }
 
   handleExerciseNameChange(event) {
@@ -40,7 +67,7 @@ export default class AddExercisePage extends React.Component {
   handleCompletedStatusChange(exerciseIndex, setIndex, event) {
     const exercisesCopy = Object.assign([], this.state.exercises);
     exercisesCopy[exerciseIndex].sets = exercisesCopy[exerciseIndex].sets.slice();
-    exercisesCopy[exerciseIndex].sets[setIndex] = Object.assign([], exercisesCopy[exerciseIndex].sets[setIndex], { isCompleted: !exercisesCopy[exerciseIndex].sets[setIndex].isCompleted });
+    exercisesCopy[exerciseIndex].sets[setIndex] = Object.assign({}, exercisesCopy[exerciseIndex].sets[setIndex], { isCompleted: !exercisesCopy[exerciseIndex].sets[setIndex].isCompleted });
     this.setState({ exercises: exercisesCopy });
   }
 
@@ -49,13 +76,13 @@ export default class AddExercisePage extends React.Component {
   }
 
   handleAddSet(exerciseIndex, event) {
-    const setArray = [{
+    const setArray = {
       isCompleted: false,
       weight: 0,
       reps: 0
-    }];
+    };
     const exercisesCopy = Object.assign([], this.state.exercises);
-    exercisesCopy[exerciseIndex] = Object.assign([], exercisesCopy[exerciseIndex], { sets: exercisesCopy[exerciseIndex].sets.concat(setArray) });
+    exercisesCopy[exerciseIndex] = Object.assign({}, exercisesCopy[exerciseIndex], { sets: exercisesCopy[exerciseIndex].sets.concat(setArray) });
     this.setState({ exercises: exercisesCopy });
   }
 
@@ -152,7 +179,7 @@ export default class AddExercisePage extends React.Component {
     });
     return (
       <>
-        <h1 className='start-text'>Workout #{workoutId}</h1>
+        <h1 className='workout-text'>Workout #{workoutId}</h1>
         <div className='exercises-button-container'>
           <button type="button" className="btn btn-primary exercises-button" data-bs-toggle="modal" data-bs-target="#exerciseNameModal">Add an exercise</button>
         </div>
@@ -189,7 +216,7 @@ export default class AddExercisePage extends React.Component {
               <p className='save-modal-text'>Are you sure you want to save this workout? Incompleted sets will not be saved.</p>
               <div className='modal-button-container'>
                 <button className='modal-cancel-button' onClick={this.handleSaveModal}>Cancel</button>
-                <button className='modal-confirm-button'>Confirm</button>
+                <button className='modal-confirm-button' onClick={this.handleSaveWorkout}>Confirm</button>
               </div>
             </div>
           </div>
