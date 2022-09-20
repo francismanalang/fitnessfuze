@@ -1,18 +1,44 @@
+.hidden {
+  display: none;
+}
+
 .start-text {
+  padding-top: 1rem;
+  font-family: "Lucida Grande", sans-serif;
+  font-weight: bold;
+  font-size: 2rem;
+}
+
+.workout-text {
   padding-top: 1rem;
   text-align: center;
   font-family: "Lucida Grande", sans-serif;
-  font-weight: bolder;
+  font-weight: bold;
+  font-size: 2rem;
 }
 
-.start-button {
+.start-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  gap: 0.5rem;
+}
+
+.exercises-button {
   font-family: "Lucida Grande", sans-serif;
   height: 2.5rem;
   width: 17rem;
 }
 
-.start-button-container {
+.exercises-button-container {
   text-align: center;
+}
+
+.save-button-container {
+  text-align: center;
+  padding-bottom: 1rem;
 }
 
 .exercise-padding {
@@ -108,4 +134,65 @@
   font-weight: bolder;
   width: 3.25rem;
   text-align: center;
+}
+
+.dark-background {
+  background: rgb(0 0 0 / 75%);
+  height: 100vh;
+  width: 100%;
+  position: fixed;
+  top: 0;
+}
+
+.modal-container {
+  width: 20rem;
+  height: 10rem;
+  background-color: white;
+  text-align: center;
+  border-radius: 0.5rem;
+  padding: 1rem;
+}
+
+.centering-div {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.save-modal-text {
+  font-family: "Lucida Grande", sans-serif;
+  font-weight: bolder;
+}
+
+.modal-button-container {
+  display: flex;
+  justify-content: space-around;
+}
+
+.modal-cancel-button {
+  border-radius: 0.25rem;
+  height: 2rem;
+  width: 6rem;
+  border: none;
+  color: white;
+  background-color: red;
+  transition: 0.3s;
+}
+
+.modal-confirm-button {
+  border-radius: 0.25rem;
+  height: 2rem;
+  width: 6rem;
+  border: none;
+  color: white;
+  background-color: #0d6efd;
+  transition: 0.3s;
+}
+
+.modal-confirm-button:hover,
+.modal-cancel-button:hover {
+  background-color: #fff;
+  border: 0.5px solid black;
+  color: black;
 }
