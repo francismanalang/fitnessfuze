@@ -22,8 +22,36 @@
     rgba(0, 0, 0, 0.23) 0 6px 6px;
 }
 
+.sign-up-container {
+  font-family: "Lucida Grande", sans-serif;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+  height: 35vh;
+  width: 35%;
+  aspect-ratio: 1.5 / 2;
+  border-radius: 0.5rem;
+  position: fixed;
+}
+
 @media screen and (min-width: 768px) {
   .box-padding {
+    width: 40%;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .sign-up-container {
+    height: 40vh;
+    width: 80%;
+  }
+}
+
+@media screen and (max-height: 480px) {
+  .sign-up-container {
+    height: 80vh;
     width: 40%;
   }
 }

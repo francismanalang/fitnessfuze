@@ -1,6 +1,9 @@
 require('dotenv/config');
 const pg = require('pg');
+const argon2 = require('argon2');
 const express = require('express');
+// const jwt = require('jsonwebtoken');
+const ClientError = require('./client-error');
 const staticMiddleware = require('./static-middleware');
 const errorMiddleware = require('./error-middleware');
 
@@ -15,6 +18,29 @@ const app = express();
 
 app.use(staticMiddleware);
 app.use(express.json());
+
+app.post('/workouts/auth/sign-up', (req, res, next) => {
+  const { username, password } = req.body;
+  if (!username || !password) {
+    throw new ClientError(400, 'username and password are required fields');
+  }
+  argon2
+    .hash(password)
+    .then(hashedPassword => {
+      const sql = `
+        INSERT INTO "users" ("username", "hashedPassword")
+        VALUES ($1, $2)
+        RETURNING "userId", "username"
+      `;
+      const params = [username, hashedPassword];
+      return db.query(sql, params);
+    })
+    .then(result => {
+      const [user] = result.rows;
+      res.status(201).json(user);
+    })
+    .catch(err => next(err));
+});
 
 app.get('/workouts/start/:workoutId', (req, res, next) => {
   const workoutId = Number(req.params.workoutId);
@@ -46,14 +72,13 @@ app.get('/workouts/start/:workoutId', (req, res, next) => {
 
 app.post('/workouts/start', (req, res, next) => {
   const createdAt = new Date();
-  const isCompleted = false;
   const exercises = '[]';
   const sql = `
-  INSERT INTO "workouts" ("createdAt", "isCompleted", "exercises")
-  VALUES ($1, $2, $3)
+  INSERT INTO "workouts" ("createdAt", "exercises")
+  VALUES ($1, $2)
   RETURNING *
   `;
-  const params = [createdAt, isCompleted, exercises];
+  const params = [createdAt, exercises];
   db.query(sql, params)
     .then(result => {
       const [newWorkout] = result.rows;
