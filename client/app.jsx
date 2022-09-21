@@ -9,8 +9,11 @@ export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      user: null,
+      isAuthorizing: true,
       route: parseRoute(window.location.hash)
     };
+    this.handleSignIn = this.handleSignIn.bind(this);
   }
 
   componentDidMount() {
@@ -19,12 +22,18 @@ export default class App extends React.Component {
     });
   }
 
+  handleSignIn(result) {
+    const { user, token } = result;
+    window.localStorage.setItem('react-context-jwt', token);
+    this.setState({ user });
+  }
+
   renderPage() {
     const { route } = this.state;
     if (route.path === '') {
       return <StartPage />;
     }
-    if (route.path === 'sign-up') {
+    if (route.path === 'sign-up' || route.path === 'sign-in') {
       return <AuthPage />;
     }
     if (route.path === 'workouts') {
@@ -34,8 +43,9 @@ export default class App extends React.Component {
   }
 
   render() {
-    const { route } = this.state;
-    const contextValue = { route };
+    const { user, route } = this.state;
+    const { handleSignIn } = this;
+    const contextValue = { user, route, handleSignIn };
     return (
       <AppContext.Provider value={contextValue}>
         <>

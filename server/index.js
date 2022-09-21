@@ -2,9 +2,11 @@ require('dotenv/config');
 const pg = require('pg');
 const argon2 = require('argon2');
 const express = require('express');
+const jwt = require('jsonwebtoken');
 const ClientError = require('./client-error');
 const staticMiddleware = require('./static-middleware');
 const errorMiddleware = require('./error-middleware');
+const authorizationMiddleware = require('./authorization-middleware');
 
 const db = new pg.Pool({
   connectionString: process.env.DATABASE_URL,
@@ -41,6 +43,41 @@ app.post('/workouts/auth/sign-up', (req, res, next) => {
     .catch(err => next(err));
 });
 
+app.post('/workouts/auth/sign-in', (req, res, next) => {
+  const { username, password } = req.body;
+  if (!username || !password) {
+    throw new ClientError(401, 'invalid login');
+  }
+  const sql = `
+    SELECT "userId",
+           "hashedPassword"
+      FROM "users"
+     WHERE "username" = $1
+  `;
+  const params = [username];
+  db.query(sql, params)
+    .then(result => {
+      const [user] = result.rows;
+      if (!user) {
+        throw new ClientError(401, 'invalid login');
+      }
+      const { userId, hashedPassword } = user;
+      return argon2
+        .verify(hashedPassword, password)
+        .then(isMatching => {
+          if (!isMatching) {
+            throw new ClientError(401, 'invalid login');
+          }
+          const payload = { userId, username };
+          const token = jwt.sign(payload, process.env.TOKEN_SECRET);
+          res.json({ token, user: payload });
+        });
+    })
+    .catch(err => next(err));
+});
+
+app.use(authorizationMiddleware);
+
 app.get('/workouts/start/:workoutId', (req, res, next) => {
   const workoutId = Number(req.params.workoutId);
   if (!Number.isInteger(workoutId) || workoutId < 1) {
@@ -70,14 +107,15 @@ app.get('/workouts/start/:workoutId', (req, res, next) => {
 });
 
 app.post('/workouts/start', (req, res, next) => {
+  const { userId } = req.user;
   const createdAt = new Date();
   const exercises = '[]';
   const sql = `
-  INSERT INTO "workouts" ("createdAt", "exercises")
-  VALUES ($1, $2)
+  INSERT INTO "workouts" ("createdAt", "exercises", "userId")
+  VALUES ($1, $2, $3)
   RETURNING *
   `;
-  const params = [createdAt, exercises];
+  const params = [createdAt, exercises, userId];
   db.query(sql, params)
     .then(result => {
       const [newWorkout] = result.rows;

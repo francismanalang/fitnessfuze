@@ -21,21 +21,15 @@ export default class AddExercisePage extends React.Component {
     this.handleClick = this.handleClick.bind(this);
   }
 
-  componentDidMount() {
-    const { workoutId } = this.state;
-    fetch(`/workouts/start/${workoutId}`)
-      .then(res => res.json())
-      .then(exercises => this.setState({ exercises }))
-      .catch(err => console.error('Fetch failed!', err));
-  }
-
   handleSaveWorkout() {
+    const token = window.localStorage.getItem('react-context-jwt');
     const { workoutId, exercises } = this.state;
     const filteredExcercises = exercises.map(exercise => { return { ...exercise, sets: exercise.sets.filter(set => set.isCompleted === true) }; });
     fetch(`/workouts/start/${workoutId}`, {
       method: 'PUT',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'X-Access-Token': `${token}`
       },
       body: JSON.stringify({ exercises: filteredExcercises })
     })

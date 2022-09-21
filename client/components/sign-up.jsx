@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default class AuthForm extends React.Component {
+export default class SignUp extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -9,6 +9,11 @@ export default class AuthForm extends React.Component {
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleClick = this.handleClick.bind(this);
+  }
+
+  handleClick() {
+    window.location.hash = 'sign-in';
   }
 
   handleChange(event) {
@@ -26,18 +31,18 @@ export default class AuthForm extends React.Component {
       },
       body: JSON.stringify(this.state)
     };
-    fetch(`/workouts/auth/${action}`, req)
-      .then(res => res.json)
+    fetch('/workouts/auth/sign-up', req)
+      .then(res => res.json())
       .then(result => {
         if (action === 'sign-up') {
-          window.location.hash = '';
+          window.location.hash = 'sign-in';
         }
       })
       .catch(err => console.error(err));
   }
 
   render() {
-    const { handleChange, handleSubmit } = this;
+    const { handleChange, handleSubmit, handleClick } = this;
     return (
         <form className='form-flex' onSubmit={handleSubmit}>
           <div>
@@ -63,7 +68,10 @@ export default class AuthForm extends React.Component {
           </div>
           <div className='sign-up-button-wrapper'>
             <button type='submit' className='sign-up-button '>Sign Up</button>
-            <p>Already a FitDiary member?</p>
+            <div className='sign-text-wrapper'>
+              <p className='sign-text'>Already a FitDiary member?</p>
+              <p className='sign-text-bottom' onClick={handleClick}>log in</p>
+            </div>
           </div>
         </form>
     );

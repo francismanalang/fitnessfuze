@@ -8,10 +8,12 @@ export default class StartPage extends React.Component {
   }
 
   startWorkoutClick() {
+    const token = window.localStorage.getItem('react-context-jwt');
     fetch('/workouts/start', {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'X-Access-Token': `${token}`
       }
     })
       .then(res => res.json())
