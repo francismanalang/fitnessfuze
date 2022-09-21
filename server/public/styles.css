@@ -223,6 +223,19 @@
   font-weight: 500;
 }
 
+.sign-text {
+  margin-bottom: 0;
+}
+
+.sign-text-bottom {
+  color: #0d6efd;
+  text-decoration: underline;
+}
+
+.sign-text-bottom:hover {
+  cursor: pointer;
+}
+
 .sign-up-button {
   border: none;
   height: 2.5rem;
