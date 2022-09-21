@@ -1,4 +1,5 @@
 import React from 'react';
+import AppContext from '../lib/app-context';
 
 export default class AddExercisePage extends React.Component {
   constructor(props) {
@@ -225,3 +226,5 @@ export default class AddExercisePage extends React.Component {
     );
   }
 }
+
+AddExercisePage.contextType = AppContext;

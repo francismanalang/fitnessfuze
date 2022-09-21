@@ -1,7 +1,8 @@
 import React from 'react';
 import StartPage from './pages/start-page';
 import AddExercisePage from './pages/add-exercises';
-// import AppContext from './lib/app-context';
+import AuthPage from './pages/auth';
+import AppContext from './lib/app-context';
 import parseRoute from './lib/parse-route';
 
 export default class App extends React.Component {
@@ -23,6 +24,9 @@ export default class App extends React.Component {
     if (route.path === '') {
       return <StartPage />;
     }
+    if (route.path === 'sign-up') {
+      return <AuthPage />;
+    }
     if (route.path === 'workouts') {
       const workoutId = route.params.get('workoutId');
       return <AddExercisePage workoutId={workoutId} />;
@@ -30,10 +34,14 @@ export default class App extends React.Component {
   }
 
   render() {
+    const { route } = this.state;
+    const contextValue = { route };
     return (
-      <>
-      { this.renderPage() }
-      </>
+      <AppContext.Provider value={contextValue}>
+        <>
+        { this.renderPage() }
+        </>
+      </AppContext.Provider>
     );
   }
 }
