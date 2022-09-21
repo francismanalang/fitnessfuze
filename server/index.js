@@ -2,7 +2,6 @@ require('dotenv/config');
 const pg = require('pg');
 const argon2 = require('argon2');
 const express = require('express');
-// const jwt = require('jsonwebtoken');
 const ClientError = require('./client-error');
 const staticMiddleware = require('./static-middleware');
 const errorMiddleware = require('./error-middleware');

@@ -45,7 +45,3 @@ export default class App extends React.Component {
     );
   }
 }
-
-App.contextType = AppContext;
-AddExercisePage.contextType = AppContext;
-StartPage.contextType = AppContext;
