@@ -5,7 +5,7 @@
 .background-image {
   background: url("https://images.unsplash.com/photo-1661678730278-4ad3f22e2b15?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1230&q=80") no-repeat center;
   background-size: cover;
-  height: 100vh;
+  height: 94vh;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -32,8 +32,8 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 100vh;
-  gap: 0.5rem;
+  height: 80vh;
+  gap: 0.25rem;
 }
 
 .exercises-button {
@@ -66,7 +66,7 @@
 }
 
 .exercise-name-input {
-  width: 16.5rem;
+  width: 16rem;
 }
 
 .col-full {

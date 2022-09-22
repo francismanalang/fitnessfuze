@@ -4,6 +4,7 @@ import AddExercisePage from './pages/add-exercises';
 import AuthPage from './pages/auth';
 import AppContext from './lib/app-context';
 import parseRoute from './lib/parse-route';
+import Navbar from './components/navbar';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -49,7 +50,8 @@ export default class App extends React.Component {
     return (
       <AppContext.Provider value={contextValue}>
         <>
-        { this.renderPage() }
+          <Navbar />
+          { this.renderPage() }
         </>
       </AppContext.Provider>
     );
