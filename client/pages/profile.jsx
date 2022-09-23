@@ -1,19 +1,16 @@
 import React from 'react';
-import jwtDecode from 'jwt-decode';
+import AppContext from '../lib/app-context';
 
 export default class Profile extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      workouts: [],
-      user: {}
+      workouts: []
     };
   }
 
   componentDidMount() {
     const token = window.localStorage.getItem('react-context-jwt');
-    const decoded = jwtDecode(token);
-    this.setState({ user: decoded });
     fetch('/workouts/start', {
       method: 'GET',
       headers: {
@@ -29,7 +26,8 @@ export default class Profile extends React.Component {
   }
 
   render() {
-    const { workouts, user } = this.state;
+    const { decoded } = this.context;
+    const { workouts } = this.state;
     const noWorkouts = workouts.length === 0
       ? ''
       : 'hidden';
@@ -78,7 +76,7 @@ export default class Profile extends React.Component {
       <>
       <div className='profile-container'>
         <div className='profile-wrapper-workouts text-align-center'>
-          <h1>{user.username}</h1>
+          <h1>{decoded.username}</h1>
           <p>Total Workouts: {workouts.length}</p>
         </div>
       </div>
@@ -91,3 +89,5 @@ export default class Profile extends React.Component {
     );
   }
 }
+
+Profile.contextType = AppContext;

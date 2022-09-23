@@ -1,19 +1,6 @@
 import React from 'react';
 
 export default class Navbar extends React.Component {
-  constructor(props) {
-    super(props);
-    this.handleStartClick = this.handleStartClick.bind(this);
-    this.handleWorkoutsClick = this.handleWorkoutsClick.bind(this);
-  }
-
-  handleStartClick() {
-    window.location.hash = '';
-  }
-
-  handleWorkoutsClick() {
-    window.location.hash = 'workout';
-  }
 
   render() {
     const { user } = this.context;
@@ -28,12 +15,12 @@ export default class Navbar extends React.Component {
             <div className='anchor-wrapper'>
               <div className='hidden-wrapper'>
                 <div className='profile-wrapper'>
-                  <a className='navbar-profile' onClick={this.handleWorkoutsClick}>
-                    Workouts
+                  <a className='navbar-profile' href='#profile'>
+                    Profile
                   </a>
                 </div>
-                <div className='start-wrapper' onClick={this.handleStartClick}>
-                  <a className='navbar-start'>
+                <div className='start-wrapper'>
+                  <a className='navbar-start' href='#'>
                     Start
                   </a>
                 </div>
@@ -61,17 +48,17 @@ export default class Navbar extends React.Component {
           <nav className="navbar navbar-dark bg-dark fixed-bottom">
             <div className="container navbar-icon-wrapper">
               <div className='profile-wrapper-icon'>
-                <a className='navbar-profile' onClick={this.handleWorkoutsClick}>
+                <a className='navbar-profile' href='#profile'>
                   <i className="fa-regular fa-circle-user fa-3x"></i>
                 </a>
               </div>
-              <div className='start-wrapper-icon' onClick={this.handleStartClick}>
-                <a className='navbar-start'>
+              <div className='start-wrapper-icon'>
+                <a className='navbar-start' href='#'>
                   <i className="fa-solid fa-dumbbell fa-3x"></i>
                 </a>
               </div>
               <div className='max-wrapper-icon'>
-                <a className='navbar-max' href="max">
+                <a className='navbar-max' href="#max">
                   <i className="fa-solid fa-calculator fa-3x"></i>
                 </a>
               </div>

@@ -6,6 +6,7 @@ import AppContext from './lib/app-context';
 import parseRoute from './lib/parse-route';
 import Navbar from './components/navbar';
 import Profile from './pages/profile';
+import jwtDecode from 'jwt-decode';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -35,7 +36,7 @@ export default class App extends React.Component {
     if (route.path === '') {
       return <StartPage />;
     }
-    if (route.path === 'workout') {
+    if (route.path === 'profile') {
       return <Profile />;
     }
     if (route.path === 'sign-up' || route.path === 'sign-in') {
@@ -48,9 +49,11 @@ export default class App extends React.Component {
   }
 
   render() {
+    const token = window.localStorage.getItem('react-context-jwt');
+    const decoded = jwtDecode(token);
     const { user, route } = this.state;
     const { handleSignIn } = this;
-    const contextValue = { user, route, handleSignIn };
+    const contextValue = { user, route, handleSignIn, decoded };
     return (
       <AppContext.Provider value={contextValue}>
         <>
