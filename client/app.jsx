@@ -12,6 +12,7 @@ export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      username: null,
       user: null,
       isAuthorizing: true,
       route: parseRoute(window.location.hash)
@@ -20,6 +21,10 @@ export default class App extends React.Component {
   }
 
   componentDidMount() {
+    const token = window.localStorage.getItem('react-context-jwt');
+    const decoded = jwtDecode(token);
+    const username = decoded.username;
+    this.setState({ username });
     window.addEventListener('hashchange', event => {
       this.setState({ route: parseRoute(window.location.hash) });
     });
@@ -32,12 +37,12 @@ export default class App extends React.Component {
   }
 
   renderPage() {
-    const { route } = this.state;
+    const { route, username } = this.state;
     if (route.path === '') {
       return <StartPage />;
     }
     if (route.path === 'profile') {
-      return <Profile />;
+      return <Profile username={username} />;
     }
     if (route.path === 'sign-up' || route.path === 'sign-in') {
       return <AuthPage />;
@@ -49,11 +54,9 @@ export default class App extends React.Component {
   }
 
   render() {
-    const token = window.localStorage.getItem('react-context-jwt');
-    const decoded = jwtDecode(token);
     const { user, route } = this.state;
     const { handleSignIn } = this;
-    const contextValue = { user, route, handleSignIn, decoded };
+    const contextValue = { user, route, handleSignIn };
     return (
       <AppContext.Provider value={contextValue}>
         <>

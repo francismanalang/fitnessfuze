@@ -1,5 +1,4 @@
 import React from 'react';
-import AppContext from '../lib/app-context';
 
 export default class Profile extends React.Component {
   constructor(props) {
@@ -26,7 +25,6 @@ export default class Profile extends React.Component {
   }
 
   render() {
-    const { decoded } = this.context;
     const { workouts } = this.state;
     const noWorkouts = workouts.length === 0
       ? ''
@@ -76,7 +74,7 @@ export default class Profile extends React.Component {
       <>
       <div className='profile-container'>
         <div className='profile-wrapper-workouts text-align-center'>
-          <h1>{decoded.username}</h1>
+          <h1>{this.props.username}</h1>
           <p>Total Workouts: {workouts.length}</p>
         </div>
       </div>
@@ -89,5 +87,3 @@ export default class Profile extends React.Component {
     );
   }
 }
-
-Profile.contextType = AppContext;
