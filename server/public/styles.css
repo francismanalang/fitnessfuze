@@ -79,7 +79,7 @@
 
 .save-button-container {
   text-align: center;
-  padding-bottom: 1rem;
+  padding-bottom: 4rem;
 }
 
 .exercise-padding {
@@ -409,6 +409,7 @@
 
 .workout-history-wrapper {
   padding: 0 1rem;
+  padding-bottom: 2rem;
 }
 
 .profile-wrapper-workouts {
@@ -429,4 +430,15 @@
   margin-left: 1rem;
   margin-right: 1rem;
   margin-bottom: 0.75rem;
+}
+
+.sets-p-element {
+  font-size: 0.85rem;
+  margin-bottom: 0;
+}
+
+.workout-h4-text {
+  font-family: "Lucida Grande", sans-serif;
+  font-weight: bolder;
+  font-size: 1.1rem;
 }

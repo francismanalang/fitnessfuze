@@ -36,19 +36,22 @@ export default class Profile extends React.Component {
     const workoutsReverse = workouts.reverse();
     const allWorkouts = workoutsReverse.map((workout, workoutIndex) => {
       const date = workout.createdAt.slice(0, 10);
-      const allExercises = workout.exercises.map((exercise, exerciseIndex, workoutIndex) => {
+      const allExercises = workout.exercises.map((exercise, exerciseIndex) => {
         const setsLength = exercise.sets.length;
         const topWeight = Math.max(...exercise.sets.map(set => set.weight));
-        const topReps = Math.max(...exercise.sets.map(set => set.reps));
+        const topSet = [...exercise.sets.filter(set => Number(set.weight) === topWeight)];
+        const topSetReps = topSet.length === 0 ? 0 : topSet[0].reps;
+        const topSetWeight = topSet.length === 0 ? 0 : topSet[0].weight;
+        const repText = topSetReps > 1 ? 'reps' : 'rep';
         return (
           <div className='row' key={exerciseIndex}>
             <div className='col-half'>
-              <p>{setsLength}x {exercise.name}</p>
+              <p className='sets-p-element'>{setsLength}x {exercise.name}</p>
             </div>
             <div className='col-half'>
               <div className='flex-end'>
                 <div>
-                  <p>{topReps} reps @ {topWeight}</p>
+                  <p className='sets-p-element'>{topSetReps} {repText} @ {topSetWeight}</p>
                 </div>
               </div>
             </div>
@@ -63,8 +66,8 @@ export default class Profile extends React.Component {
           </div>
           <div className='set-exercise-container'>
             <div className='exercise-set-header'>
-              <h4 className='workout-number-text'>Exercises:</h4>
-              <h4 className='workout-number-text'>Top Set:</h4>
+              <h4 className='workout-h4-text'>Exercises:</h4>
+              <h4 className='workout-h4-text'>Top Set:</h4>
             </div>
             {allExercises}
           </div>
