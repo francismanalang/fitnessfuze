@@ -70,7 +70,7 @@ export default class SignIn extends React.Component {
             <button type='submit' className='sign-up-button'>Log In</button>
             <div className='sign-text-wrapper'>
               <p className='sign-text'>Don&#39;t have an account?</p>
-              <p className='sign-text-bottom' onClick={handleClick}>sign up</p>
+              <p className='sign-text-bottom' onClick={handleClick}>Sign up</p>
             </div>
           </div>
         </form>

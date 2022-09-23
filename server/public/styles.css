@@ -2,12 +2,22 @@
   display: none;
 }
 
+.text-align-center {
+  text-align: center;
+}
+
+.font-family {
+  font-family:
+    "Lucida Grande",
+    sans-serif;
+}
+
 .background-image {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  height: 92vh;
+  height: 94vh;
   animation: animate 25s ease-in-out infinite;
   background-size: cover;
 }
@@ -52,7 +62,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 92vh;
+  height: 94vh;
   gap: 0.25rem;
   background: rgba(0, 0, 0, 0.25);
 }
@@ -92,6 +102,10 @@
 
 .col-full {
   flex-basis: 100%;
+}
+
+.col-half {
+  flex-basis: 50%;
 }
 
 .row {
@@ -302,5 +316,117 @@
 .start-page-container {
   animation: animate 25s ease-in-out infinite;
   background-size: cover;
-  height: 92vh;
+  height: 94vh;
+}
+
+.start-wrapper {
+  margin-top: 0.47rem;
+  margin-right: 1.5rem;
+}
+
+.navbar-start {
+  font-family: "Lucida Grande", sans-serif;
+  text-decoration: none;
+  color: white;
+}
+
+.profile-wrapper {
+  margin-top: 0.47rem;
+  margin-right: 1.5rem;
+}
+
+.navbar-profile {
+  font-family: "Lucida Grande", sans-serif;
+  text-decoration: none;
+  color: white;
+}
+
+.navbar-profile:hover,
+.navbar-start:hover {
+  text-decoration: underline;
+}
+
+.anchor-wrapper {
+  max-width: 20rem;
+  display: flex;
+}
+
+.navbar-icon-wrapper {
+  max-width: 20rem;
+  display: flex;
+  justify-content: space-around;
+}
+
+.navbar-brand {
+  font-family: "Lucida Grande", sans-serif;
+}
+
+.fa-calculator {
+  color: white;
+}
+
+.set-exercise-container {
+  max-width: 30rem;
+  margin: auto;
+  padding: 1.25rem;
+}
+
+.workout-history-text {
+  font-family: "Lucida Grande", sans-serif;
+  font-weight: bolder;
+  padding-bottom: 0.5rem;
+  padding-top: 1rem;
+}
+
+.workout-number-text {
+  font-family: "Lucida Grande", sans-serif;
+  font-weight: bolder;
+}
+
+.workout-history-container {
+  margin: auto;
+  max-width: 35rem;
+  font-family: "Lucida Grande", sans-serif;
+  background-color: #e4e4e4;
+  padding-top: 1rem;
+  border: 1px solid black;
+  border-radius: 1rem;
+  margin-bottom: 2rem;
+  box-shadow:
+    rgba(0, 0, 0, 0.19) 0 10px 20px,
+    rgba(0, 0, 0, 0.23) 0 6px 6px;
+}
+
+.exercise-set-header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.flex-end {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.workout-history-wrapper {
+  padding: 0 1rem;
+}
+
+.profile-wrapper-workouts {
+  margin: auto;
+  font-family: "Lucida Grande", sans-serif;
+  max-width: 35rem;
+  background-color: #212528;
+  color: white;
+  padding: 2rem;
+  border-radius: 1rem;
+  margin-top: 1rem;
+  box-shadow:
+    rgba(0, 0, 0, 0.19) 0 10px 20px,
+    rgba(0, 0, 0, 0.23) 0 6px 6px;
+}
+
+.profile-container {
+  margin-left: 1rem;
+  margin-right: 1rem;
+  margin-bottom: 0.75rem;
 }

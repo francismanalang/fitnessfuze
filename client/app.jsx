@@ -5,6 +5,7 @@ import AuthPage from './pages/auth';
 import AppContext from './lib/app-context';
 import parseRoute from './lib/parse-route';
 import Navbar from './components/navbar';
+import Profile from './pages/profile';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -33,6 +34,9 @@ export default class App extends React.Component {
     const { route } = this.state;
     if (route.path === '') {
       return <StartPage />;
+    }
+    if (route.path === 'workout') {
+      return <Profile />;
     }
     if (route.path === 'sign-up' || route.path === 'sign-in') {
       return <AuthPage />;
