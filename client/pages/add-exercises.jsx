@@ -24,19 +24,19 @@ export default class AddExercisePage extends React.Component {
   handleSaveWorkout() {
     const token = window.localStorage.getItem('react-context-jwt');
     const { workoutId, exercises } = this.state;
-    const filteredExcercises = exercises.map(exercise => { return { ...exercise, sets: exercise.sets.filter(set => set.isCompleted === true) }; });
+    const filteredExercises = exercises.map(exercise => { return { ...exercise, sets: exercise.sets.filter(set => set.isCompleted === true && set !== undefined) }; });
     fetch(`/workouts/start/${workoutId}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
         'X-Access-Token': `${token}`
       },
-      body: JSON.stringify({ exercises: filteredExcercises })
+      body: JSON.stringify({ exercises: filteredExercises })
     })
       .then(res => res.json())
       .then(data => {
         this.setState({ exercises: [] });
-        window.location.hash = '';
+        window.location.hash = 'workout';
       })
       .catch(err => console.error('Fetch failed during PUT', err));
   }
@@ -127,12 +127,12 @@ export default class AddExercisePage extends React.Component {
             <span>{setIndex + 1}</span>
             <span>
               <div className='reps-padding'>
-                <input onChange={event => this.handleRepsChange(exerciseIndex, setIndex, event)} className='number-input' type="number" name="reps" id="reps" value={exercises[exerciseIndex].sets[setIndex].reps} />
+                <input required onChange={event => this.handleRepsChange(exerciseIndex, setIndex, event)} className='number-input' type="number" name="reps" id="reps" value={exercises[exerciseIndex].sets[setIndex].reps} />
               </div>
             </span>
             <span>
               <div className='weight-padding'>
-                <input onChange={event => this.handleWeightChange(exerciseIndex, setIndex, event)} className='number-input' type="number" name="weight" id="weight" value={exercises[exerciseIndex].sets[setIndex].weight} />
+                <input required onChange={event => this.handleWeightChange(exerciseIndex, setIndex, event)} className='number-input' type="number" name="weight" id="weight" value={exercises[exerciseIndex].sets[setIndex].weight} />
               </div>
             </span>
             <span className='icon-padding'><i className={`fa-${iconChange} fa-circle-check fa-lg`} onClick={event => this.handleCompletedStatusChange(exerciseIndex, setIndex, event)}></i></span>

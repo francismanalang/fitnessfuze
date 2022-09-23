@@ -44,8 +44,8 @@ export default class AuthPage extends React.Component {
       ? 'hidden'
       : '';
     const message = route.path === 'sign-up'
-      ? 'Sign up for FitDiary'
-      : 'Log in to Fitdiary';
+      ? 'Sign up for FitnessFuze'
+      : 'Log in to FitnessFuze';
 
     if (user) return <Redirect to="" />;
 

@@ -26,9 +26,11 @@ export default class StartPage extends React.Component {
   render() {
     return (
       <>
-      <div className='start-container'>
-        <h1 className='start-text'>Start Workout:</h1>
-        <button type="button" className="btn btn-primary exercises-button" onClick={this.startWorkoutClick}>Begin a new workout</button>
+      <div className='start-page-container'>
+        <div className='start-container'>
+          <h1 className='start-text'>Start Workout:</h1>
+          <button type="button" className="btn btn-primary exercises-button" onClick={this.startWorkoutClick}>Begin a new workout</button>
+        </div>
       </div>
       </>
     );

@@ -29,7 +29,7 @@
   justify-content: center;
   align-items: center;
   background-color: white;
-  height: 42vh;
+  height: 45vh;
   width: 32%;
   aspect-ratio: 1.5 / 2;
   border-radius: 0.5rem;
@@ -37,9 +37,17 @@
   padding-top: 1rem;
 }
 
+.hidden-wrapper {
+  display: flex;
+}
+
 @media screen and (min-width: 768px) {
   .box-padding {
     width: 40%;
+  }
+
+  .hidden-wrapper-bottom {
+    display: none;
   }
 }
 
@@ -48,11 +56,15 @@
     height: 40vh;
     width: 80%;
   }
+
+  .hidden-wrapper {
+    display: none;
+  }
 }
 
 @media screen and (max-height: 480px) {
   .sign-up-container {
-    height: 80vh;
+    height: 75vh;
     width: 40%;
   }
 }

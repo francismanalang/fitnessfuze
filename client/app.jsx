@@ -4,11 +4,15 @@ import AddExercisePage from './pages/add-exercises';
 import AuthPage from './pages/auth';
 import AppContext from './lib/app-context';
 import parseRoute from './lib/parse-route';
+import Navbar from './components/navbar';
+import Profile from './pages/profile';
+import jwtDecode from 'jwt-decode';
 
 export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      username: null,
       user: null,
       isAuthorizing: true,
       route: parseRoute(window.location.hash)
@@ -17,6 +21,10 @@ export default class App extends React.Component {
   }
 
   componentDidMount() {
+    const token = window.localStorage.getItem('react-context-jwt');
+    const decoded = jwtDecode(token);
+    const username = decoded.username;
+    this.setState({ username });
     window.addEventListener('hashchange', event => {
       this.setState({ route: parseRoute(window.location.hash) });
     });
@@ -29,9 +37,12 @@ export default class App extends React.Component {
   }
 
   renderPage() {
-    const { route } = this.state;
+    const { route, username } = this.state;
     if (route.path === '') {
       return <StartPage />;
+    }
+    if (route.path === 'profile') {
+      return <Profile username={username} />;
     }
     if (route.path === 'sign-up' || route.path === 'sign-in') {
       return <AuthPage />;
@@ -49,7 +60,8 @@ export default class App extends React.Component {
     return (
       <AppContext.Provider value={contextValue}>
         <>
-        { this.renderPage() }
+          <Navbar />
+          { this.renderPage() }
         </>
       </AppContext.Provider>
     );

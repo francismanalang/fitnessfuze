@@ -78,30 +78,17 @@ app.post('/workouts/auth/sign-in', (req, res, next) => {
 
 app.use(authorizationMiddleware);
 
-app.get('/workouts/start/:workoutId', (req, res, next) => {
-  const workoutId = Number(req.params.workoutId);
-  if (!Number.isInteger(workoutId) || workoutId < 1) {
-    res.status(400).json({
-      error: 'workoutId must be a positive integer'
-    });
-    return;
-  }
+app.get('/workouts/start', (req, res, next) => {
+  const { userId } = req.user;
   const sql = `
-    SELECT "exercises"
-    FROM "workouts"
-    WHERE "workoutId" = $1
+    SELECT *
+      FROM "workouts"
+     WHERE "userId" = $1
   `;
-  const params = [workoutId];
+  const params = [userId];
   db.query(sql, params)
     .then(result => {
-      const [data] = result.rows;
-      if (!data) {
-        res.status(404).json({
-          error: `cannot find exercises with workoutId ${workoutId}`
-        });
-        return;
-      }
-      res.status(200).json(data.exercises);
+      res.json(result.rows);
     })
     .catch(err => next(err));
 });

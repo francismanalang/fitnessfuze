@@ -2,14 +2,43 @@
   display: none;
 }
 
+.text-align-center {
+  text-align: center;
+}
+
+.font-family {
+  font-family:
+    "Lucida Grande",
+    sans-serif;
+}
+
 .background-image {
-  background: url("https://images.unsplash.com/photo-1661678730278-4ad3f22e2b15?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1230&q=80") no-repeat center;
-  background-size: cover;
-  height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  height: 94vh;
+  animation: animate 25s ease-in-out infinite;
+  background-size: cover;
+}
+
+@keyframes animate {
+  0%,
+  100% {
+    background: url("https://images.unsplash.com/photo-1536922246289-88c42f957773?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1504&q=80") no-repeat center;
+  }
+
+  25% {
+    background: url("https://images.unsplash.com/photo-1597076545399-91a3ff0e71b3?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80") no-repeat center;
+  }
+
+  50% {
+    background: url("https://images.unsplash.com/photo-1580051745101-2dca6e53f15c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1469&q=80") no-repeat center;
+  }
+
+  75% {
+    background: url("https://images.unsplash.com/photo-1605910959675-2e28d06cc321?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80") no-repeat center;
+  }
 }
 
 .start-text {
@@ -17,6 +46,7 @@
   font-family: "Lucida Grande", sans-serif;
   font-weight: bold;
   font-size: 2rem;
+  color: #fff;
 }
 
 .workout-text {
@@ -32,8 +62,9 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 100vh;
-  gap: 0.5rem;
+  height: 94vh;
+  gap: 0.25rem;
+  background: rgba(0, 0, 0, 0.25);
 }
 
 .exercises-button {
@@ -48,7 +79,7 @@
 
 .save-button-container {
   text-align: center;
-  padding-bottom: 1rem;
+  padding-bottom: 4rem;
 }
 
 .exercise-padding {
@@ -66,11 +97,15 @@
 }
 
 .exercise-name-input {
-  width: 16.5rem;
+  width: 16rem;
 }
 
 .col-full {
   flex-basis: 100%;
+}
+
+.col-half {
+  flex-basis: 50%;
 }
 
 .row {
@@ -276,4 +311,134 @@
 
 .log-in-text {
   color: white;
+}
+
+.start-page-container {
+  animation: animate 25s ease-in-out infinite;
+  background-size: cover;
+  height: 94vh;
+}
+
+.start-wrapper {
+  margin-top: 0.47rem;
+  margin-right: 1.5rem;
+}
+
+.navbar-start {
+  font-family: "Lucida Grande", sans-serif;
+  text-decoration: none;
+  color: white;
+}
+
+.profile-wrapper {
+  margin-top: 0.47rem;
+  margin-right: 1.5rem;
+}
+
+.navbar-profile {
+  font-family: "Lucida Grande", sans-serif;
+  text-decoration: none;
+  color: white;
+}
+
+.navbar-profile:hover,
+.navbar-start:hover {
+  text-decoration: underline;
+}
+
+.anchor-wrapper {
+  max-width: 20rem;
+  display: flex;
+}
+
+.navbar-icon-wrapper {
+  max-width: 20rem;
+  display: flex;
+  justify-content: space-around;
+}
+
+.navbar-brand {
+  font-family: "Lucida Grande", sans-serif;
+}
+
+.fa-calculator {
+  color: white;
+}
+
+.set-exercise-container {
+  max-width: 30rem;
+  margin: auto;
+  padding: 1.25rem;
+}
+
+.workout-history-text {
+  font-family: "Lucida Grande", sans-serif;
+  font-weight: bolder;
+  padding-bottom: 0.5rem;
+  padding-top: 1rem;
+}
+
+.workout-number-text {
+  font-family: "Lucida Grande", sans-serif;
+  font-weight: bolder;
+}
+
+.workout-history-container {
+  margin: auto;
+  max-width: 35rem;
+  font-family: "Lucida Grande", sans-serif;
+  background-color: #e4e4e4;
+  padding-top: 1rem;
+  border: 1px solid black;
+  border-radius: 1rem;
+  margin-bottom: 2rem;
+  box-shadow:
+    rgba(0, 0, 0, 0.19) 0 10px 20px,
+    rgba(0, 0, 0, 0.23) 0 6px 6px;
+}
+
+.exercise-set-header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.flex-end {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.workout-history-wrapper {
+  padding: 0 1rem;
+  padding-bottom: 2rem;
+}
+
+.profile-wrapper-workouts {
+  margin: auto;
+  font-family: "Lucida Grande", sans-serif;
+  max-width: 35rem;
+  background-color: #212528;
+  color: white;
+  padding: 2rem;
+  border-radius: 1rem;
+  margin-top: 1rem;
+  box-shadow:
+    rgba(0, 0, 0, 0.19) 0 10px 20px,
+    rgba(0, 0, 0, 0.23) 0 6px 6px;
+}
+
+.profile-container {
+  margin-left: 1rem;
+  margin-right: 1rem;
+  margin-bottom: 0.75rem;
+}
+
+.sets-p-element {
+  font-size: 0.85rem;
+  margin-bottom: 0;
+}
+
+.workout-h4-text {
+  font-family: "Lucida Grande", sans-serif;
+  font-weight: bolder;
+  font-size: 1.1rem;
 }
