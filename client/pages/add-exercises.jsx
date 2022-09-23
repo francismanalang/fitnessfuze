@@ -36,7 +36,7 @@ export default class AddExercisePage extends React.Component {
       .then(res => res.json())
       .then(data => {
         this.setState({ exercises: [] });
-        window.location.hash = 'workout';
+        window.location.hash = 'profile';
       })
       .catch(err => console.error('Fetch failed during PUT', err));
   }
