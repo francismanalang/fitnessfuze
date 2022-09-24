@@ -6,25 +6,20 @@ import AppContext from './lib/app-context';
 import parseRoute from './lib/parse-route';
 import Navbar from './components/navbar';
 import Profile from './pages/profile';
-import jwtDecode from 'jwt-decode';
 
 export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      username: null,
       user: null,
       isAuthorizing: true,
       route: parseRoute(window.location.hash)
     };
     this.handleSignIn = this.handleSignIn.bind(this);
+    this.handleSignOut = this.handleSignOut.bind(this);
   }
 
   componentDidMount() {
-    const token = window.localStorage.getItem('react-context-jwt');
-    const decoded = jwtDecode(token);
-    const username = decoded.username;
-    this.setState({ username });
     window.addEventListener('hashchange', event => {
       this.setState({ route: parseRoute(window.location.hash) });
     });
@@ -36,7 +31,13 @@ export default class App extends React.Component {
     this.setState({ user });
   }
 
+  handleSignOut() {
+    window.localStorage.removeItem('react-context-jwt');
+    this.setState({ user: null });
+  }
+
   renderPage() {
+    if (this.isAuthorizing) return null;
     const { route, username } = this.state;
     if (route.path === '') {
       return <StartPage />;
@@ -55,8 +56,8 @@ export default class App extends React.Component {
 
   render() {
     const { user, route } = this.state;
-    const { handleSignIn } = this;
-    const contextValue = { user, route, handleSignIn };
+    const { handleSignIn, handleSignOut } = this;
+    const contextValue = { user, route, handleSignIn, handleSignOut };
     return (
       <AppContext.Provider value={contextValue}>
         <>

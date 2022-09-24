@@ -69,7 +69,7 @@ export default class SignUp extends React.Component {
           <div className='sign-up-button-wrapper'>
             <button type='submit' className='sign-up-button '>Sign Up</button>
             <div className='sign-text-wrapper'>
-              <p className='sign-text'>Already a FitDiary member?</p>
+              <p className='sign-text'>Already a FitnessFuze member?</p>
               <p className='sign-text-bottom' onClick={handleClick}>Log in</p>
             </div>
           </div>

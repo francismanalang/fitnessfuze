@@ -307,6 +307,7 @@
   background-color: white;
   border: none;
   box-shadow: rgba(0, 0, 0, 0.24) 0 3px 8px;
+  font-weight: bold;
 }
 
 .log-in-text {
@@ -332,7 +333,7 @@
 
 .profile-wrapper {
   margin-top: 0.47rem;
-  margin-right: 1.5rem;
+  margin-right: 2.25rem;
 }
 
 .navbar-profile {
