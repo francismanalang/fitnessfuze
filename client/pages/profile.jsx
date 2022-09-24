@@ -1,4 +1,6 @@
 import React from 'react';
+import AppContext from '../lib/app-context';
+import Redirect from '../components/redirect';
 
 export default class Profile extends React.Component {
   constructor(props) {
@@ -25,6 +27,11 @@ export default class Profile extends React.Component {
   }
 
   render() {
+
+    if (!this.context.user) return <Redirect to="sign-in" />;
+
+    const { user } = this.context;
+    const username = user === null ? '' : user.username;
     const { workouts } = this.state;
     const noWorkouts = workouts.length === 0
       ? ''
@@ -74,7 +81,7 @@ export default class Profile extends React.Component {
       <>
       <div className='profile-container'>
         <div className='profile-wrapper-workouts text-align-center'>
-          <h1>{this.props.username}</h1>
+          <h1>{username}</h1>
           <p>Total Workouts: {workouts.length}</p>
         </div>
       </div>
@@ -87,3 +94,5 @@ export default class Profile extends React.Component {
     );
   }
 }
+
+Profile.contextType = AppContext;

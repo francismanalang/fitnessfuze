@@ -1,9 +1,11 @@
 import React from 'react';
+import AppContext from '../lib/app-context';
 
 export default class Navbar extends React.Component {
 
   render() {
-    const { user } = this.context;
+    const { user, handleSignOut } = this.context;
+    const userHide = user === null ? 'hidden' : '';
     return (
       <>
         <nav className="navbar navbar-dark bg-dark">
@@ -12,8 +14,8 @@ export default class Navbar extends React.Component {
               <i className="fas fa-bolt me-2" />
               FitnessFuze
             </a>
-            <div className='anchor-wrapper'>
-              <div className='hidden-wrapper'>
+            <div className='anchor-wrapper font-family'>
+              <div className={`hidden-wrapper ${userHide}`}>
                 <div className='profile-wrapper'>
                   <a className='navbar-profile' href='#profile'>
                     Profile
@@ -26,25 +28,15 @@ export default class Navbar extends React.Component {
                 </div>
               </div>
               {user !== null &&
-                <button className="btn btn-dark">
+                <button className="btn btn-dark" onClick={handleSignOut} href='#sign-in'>
                   Sign out
                   <i className="ms-2 fas fa-sign-out-alt" />
                 </button>
               }
-              {user === null &&
-                <>
-                  <a href="#sign-in" className="btn btn-primary">
-                    Sign In
-                  </a>
-                  <a href="#sign-up" className="btn btn-dark">
-                    Sign Up
-                  </a>
-                </>
-              }
             </div>
           </div>
         </nav>
-        <div className='hidden-wrapper-bottom'>
+        <div className={`hidden-wrapper-bottom ${userHide}`}>
           <nav className="navbar navbar-dark bg-dark fixed-bottom">
             <div className="container navbar-icon-wrapper">
               <div className='profile-wrapper-icon'>
@@ -69,3 +61,5 @@ export default class Navbar extends React.Component {
     );
   }
 }
+
+Navbar.contextType = AppContext;

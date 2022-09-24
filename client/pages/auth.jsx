@@ -35,8 +35,7 @@ export default class AuthPage extends React.Component {
           <SignIn
             key={route.path}
             action={route.path}
-            onSignIn={handleSignIn}
-          />
+            onSignIn={handleSignIn} />
         );
       }
     };
@@ -50,19 +49,19 @@ export default class AuthPage extends React.Component {
     if (user) return <Redirect to="" />;
 
     return (
-      <>
-      <div className='background-image'>
-        <div className={`sign-up-container ${signUpToggle}`}>
-          <div className='sign-up-icon'>
-            <i className="fa-solid fa-address-book fa-2x"></i>
-            <h4>{message}</h4>
+        <>
+        <div className='background-image'>
+          <div className={`sign-up-container ${signUpToggle}`}>
+            <div className='sign-up-icon'>
+              <i className="fa-solid fa-address-book fa-2x"></i>
+              <h4>{message}</h4>
+            </div>
+            {modalShow()}
           </div>
-          {modalShow()}
+          <h3 className='log-in-text'>Document your fitness journey</h3>
+          <button className='log-in-button' onClick={this.handleSignUpClick}>Start</button>
         </div>
-        <h3 className='log-in-text'>Document your fitness journey</h3>
-        <button className='log-in-button' onClick={this.handleSignUpClick}>Sign Up</button>
-      </div>
-      </>
+        </>
     );
   }
 }
