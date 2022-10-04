@@ -10,6 +10,7 @@ export default class SignIn extends React.Component {
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleClick = this.handleClick.bind(this);
+    this.handleDemoUser = this.handleDemoUser.bind(this);
   }
 
   handleClick() {
@@ -41,8 +42,12 @@ export default class SignIn extends React.Component {
       .catch(err => console.error(err));
   }
 
+  handleDemoUser() {
+    this.setState({ username: 'Demo', password: 'demopassword' });
+  }
+
   render() {
-    const { handleChange, handleSubmit, handleClick } = this;
+    const { handleChange, handleSubmit, handleClick, handleDemoUser } = this;
     return (
         <form className='form-flex' onSubmit={handleSubmit}>
           <div>
@@ -54,7 +59,8 @@ export default class SignIn extends React.Component {
             name="username"
             onChange={handleChange}
             placeholder="Username"
-            className="input-style" />
+            className="input-style"
+            value={this.state.username} />
           </div>
           <div>
             <input
@@ -64,13 +70,15 @@ export default class SignIn extends React.Component {
               name="password"
               onChange={handleChange}
               placeholder="Password"
-              className="input-style" />
+              className="input-style"
+              value={this.state.password} />
           </div>
           <div className='sign-up-button-wrapper'>
             <button type='submit' className='sign-up-button'>Log In</button>
             <div className='sign-text-wrapper'>
               <p className='sign-text'>Don&#39;t have an account?</p>
               <p className='sign-text-bottom' onClick={handleClick}>Sign up</p>
+              <p className='sign-text-bottom' onClick={handleDemoUser}>Demo user</p>
             </div>
           </div>
         </form>

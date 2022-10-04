@@ -49,11 +49,6 @@ export default class Navbar extends React.Component {
                   <i className="fa-solid fa-dumbbell fa-3x"></i>
                 </a>
               </div>
-              <div className='max-wrapper-icon'>
-                <a className='navbar-max' href="#max">
-                  <i className="fa-solid fa-calculator fa-3x"></i>
-                </a>
-              </div>
             </div>
           </nav>
         </div>
