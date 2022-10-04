@@ -15,7 +15,7 @@ export default class AuthPage extends React.Component {
 
   handleSignUpClick() {
     this.setState({ signUpPageOpen: !this.state.signUpPageOpen });
-    window.location.hash = 'sign-up';
+    window.location.hash = 'sign-in';
   }
 
   render() {

@@ -6,6 +6,7 @@ export default class Profile extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      isLoading: true,
       workouts: []
     };
   }
@@ -21,7 +22,7 @@ export default class Profile extends React.Component {
     })
       .then(res => res.json())
       .then(workouts => {
-        this.setState({ workouts });
+        this.setState({ workouts, isLoading: false });
       })
       .catch(err => console.error(err));
   }
@@ -32,10 +33,16 @@ export default class Profile extends React.Component {
 
     const { user } = this.context;
     const username = user === null ? '' : user.username;
-    const { workouts } = this.state;
+    const { workouts, isLoading } = this.state;
     const noWorkouts = workouts.length === 0
       ? ''
       : 'hidden';
+    const loadingSpinner = isLoading
+      ? ''
+      : 'hidden';
+    const hideNoWorkouts = isLoading
+      ? 'hidden'
+      : '';
     const workoutsReverse = workouts.reverse();
     const allWorkouts = workoutsReverse.map((workout, workoutIndex) => {
       const date = workout.createdAt.slice(0, 10);
@@ -88,7 +95,12 @@ export default class Profile extends React.Component {
         <h1 className='text-align-center workout-history-text'>Workout History</h1>
         <div className='workout-history-wrapper'>
           {allWorkouts}
-          <p className={`text-align-center font-family ${noWorkouts}`}>Oh no! You have no workouts saved. Get a workout in and view it here!</p>
+          <p className={`text-align-center font-family ${hideNoWorkouts} ${noWorkouts}`}>Oh no! You have no workouts saved. Finish a workout and view it here!</p>
+          <div className={`loading-spinner ${loadingSpinner}`}>
+            <div className="spinner-border" role="status">
+              <span className="visually-hidden">Loading...</span>
+            </div>
+          </div>
         </div>
       </>
     );
