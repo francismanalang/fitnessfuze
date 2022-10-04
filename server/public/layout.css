@@ -29,8 +29,8 @@
   justify-content: center;
   align-items: center;
   background-color: white;
-  height: 45vh;
-  min-width: 40%;
+  height: 48vh;
+  width: 40%;
   aspect-ratio: 1.5 / 2;
   border-radius: 0.5rem;
   position: fixed;
@@ -53,7 +53,7 @@
 
 @media screen and (max-width: 768px) {
   .sign-up-container {
-    height: 40vh;
+    height: 50vh;
     width: 80%;
   }
 
@@ -62,16 +62,17 @@
   }
 }
 
-@media screen and (max-height: 480px) {
+@media screen and (min-width: 1280px) {
   .sign-up-container {
-    height: 75vh;
-    width: 40%;
+    height: 50vh;
+    width: 25%;
   }
 }
 
-@media screen and (min-width: 1280px) {
+@media screen and (max-height: 650px) {
   .sign-up-container {
-    height: 40vh;
-    min-width: 25%;
+    height: 80vh;
+    width: 60%;
+    padding-top: 0;
   }
 }
