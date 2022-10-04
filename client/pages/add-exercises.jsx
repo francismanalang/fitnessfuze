@@ -127,12 +127,12 @@ export default class AddExercisePage extends React.Component {
             <span>{setIndex + 1}</span>
             <span>
               <div className='reps-padding'>
-                <input required onChange={event => this.handleRepsChange(exerciseIndex, setIndex, event)} className='number-input' type="number" name="reps" id="reps" value={exercises[exerciseIndex].sets[setIndex].reps} />
+                <input required onChange={event => this.handleRepsChange(exerciseIndex, setIndex, event)} className='number-input' type="number" name="reps" id="reps" min={0} value={exercises[exerciseIndex].sets[setIndex].reps} />
               </div>
             </span>
             <span>
               <div className='weight-padding'>
-                <input required onChange={event => this.handleWeightChange(exerciseIndex, setIndex, event)} className='number-input' type="number" name="weight" id="weight" value={exercises[exerciseIndex].sets[setIndex].weight} />
+                <input required onChange={event => this.handleWeightChange(exerciseIndex, setIndex, event)} className='number-input' type="number" name="weight" id="weight" min={0} value={exercises[exerciseIndex].sets[setIndex].weight} />
               </div>
             </span>
             <span className='icon-padding'><i className={`fa-${iconChange} fa-circle-check fa-lg`} onClick={event => this.handleCompletedStatusChange(exerciseIndex, setIndex, event)}></i></span>
