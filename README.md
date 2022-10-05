@@ -71,7 +71,7 @@ Try the application live here: [Dokku deployment](https://fitnessfuze.francisman
 1. Clone the repository.
 
     ```shell
-    git clone https://github.com/francismanalang/fitnessfuze
+    git clone git@github.com:francismanalang/fitnessfuze.git
     cd fitnessfuze
     ```
 
