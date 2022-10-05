@@ -71,7 +71,7 @@ export default class Profile extends React.Component {
       return (
         <div key={workoutIndex} className="workout-history-container">
           <div className='workout-history-header'>
-            <h3 className='workout-number-text text-align-center'>Workout #{workout.workoutId}</h3>
+            <h3 className='workout-number-text text-align-center'>Workout #{this.state.workouts.findIndex(workout => workout.workoutId === this.state.workouts.reverse()[workoutIndex].workoutId) + 1}</h3>
             <p className='text-align-center'>{date}</p>
           </div>
           <div className='set-exercise-container'>
