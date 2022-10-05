@@ -8,7 +8,7 @@ I have been an olympic weightlifter for the last 5 years and have tried a multit
 
 My goal was to incorporate the most useful features that a gym goer would need in order to track their workouts and progress. Addtionally, I was eager to challenge myself and apply everything that I have learned to create an app that I was proud of.
 
-### Live Demo
+## Live Demo
 
 Try the application live here: [Dokku deployment](https://fitnessfuze.francismanalang.net/)
 
