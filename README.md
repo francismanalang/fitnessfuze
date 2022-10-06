@@ -86,7 +86,7 @@ Try the application live here: [Dokku deployment](https://fitnessfuze.francisman
 4. Create a `.env` file from the example template and update `TOKEN_SECRET` value
     
     ```shell
-    cp .env.exmaple .env
+    cp .env.example .env
     ```
  
  5. Start PostgreSQL and create the database
