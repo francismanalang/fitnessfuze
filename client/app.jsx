@@ -6,6 +6,7 @@ import AppContext from './lib/app-context';
 import parseRoute from './lib/parse-route';
 import Navbar from './components/navbar';
 import Profile from './pages/profile';
+import jwtDecode from 'jwt-decode';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -23,6 +24,9 @@ export default class App extends React.Component {
     window.addEventListener('hashchange', event => {
       this.setState({ route: parseRoute(window.location.hash) });
     });
+    const token = window.localStorage.getItem('react-context-jwt');
+    const user = token ? jwtDecode(token) : null;
+    this.setState({ user, isAuthorizing: false });
   }
 
   handleSignIn(result) {
@@ -37,7 +41,6 @@ export default class App extends React.Component {
   }
 
   renderPage() {
-    if (this.isAuthorizing) return null;
     const { route, username } = this.state;
     if (route.path === '') {
       return <StartPage />;
@@ -55,6 +58,7 @@ export default class App extends React.Component {
   }
 
   render() {
+    if (this.state.isAuthorizing) return null;
     const { user, route } = this.state;
     const { handleSignIn, handleSignOut } = this;
     const contextValue = { user, route, handleSignIn, handleSignOut };
