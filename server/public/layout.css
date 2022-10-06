@@ -29,12 +29,10 @@
   justify-content: center;
   align-items: center;
   background-color: white;
-  height: 48vh;
-  width: 40%;
-  aspect-ratio: 1.5 / 2;
+  min-height: 22rem;
+  min-width: 21rem;
   border-radius: 0.5rem;
   position: fixed;
-  padding-top: 1rem;
 }
 
 .hidden-wrapper {
@@ -52,27 +50,13 @@
 }
 
 @media screen and (max-width: 768px) {
-  .sign-up-container {
-    height: 50vh;
-    width: 80%;
-  }
-
   .hidden-wrapper {
     display: none;
   }
 }
 
-@media screen and (min-width: 1280px) {
+@media screen and (max-height: 450px) {
   .sign-up-container {
-    height: 50vh;
-    width: 25%;
-  }
-}
-
-@media screen and (max-height: 650px) {
-  .sign-up-container {
-    height: 80vh;
-    width: 60%;
-    padding-top: 0;
+    top: 0;
   }
 }

@@ -28,10 +28,10 @@ export default class Profile extends React.Component {
   }
 
   render() {
-
-    if (!this.context.user) return <Redirect to="sign-in" />;
-
     const { user } = this.context;
+
+    if (!user) return <Redirect to="" />;
+
     const username = user === null ? '' : user.username;
     const { workouts, isLoading } = this.state;
     const noWorkouts = workouts.length === 0
