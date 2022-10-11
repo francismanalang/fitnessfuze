@@ -33,7 +33,7 @@ export default class Profile extends React.Component {
     if (!user) return <Redirect to="" />;
 
     const username = user === null ? '' : user.username;
-    const { workouts, isLoading } = this.state;
+    const { isLoading, workouts } = this.state;
     const noWorkouts = workouts.length === 0
       ? ''
       : 'hidden';
