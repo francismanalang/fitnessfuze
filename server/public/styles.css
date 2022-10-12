@@ -455,3 +455,60 @@
 .hidden {
   display: none;
 }
+
+.calculator-heading {
+  padding: 1rem;
+  padding-bottom: 0;
+  text-decoration: underline;
+  font-weight: bold;
+}
+
+.calulator-text {
+  padding: 0 2rem;
+  font-size: 1.1rem;
+  max-width: 41rem;
+  margin: auto;
+}
+
+.calculator-form {
+  padding: 1rem;
+}
+
+.calculator-label {
+  font-weight: bold;
+  padding-right: 0.75rem;
+}
+
+.label-weight {
+  margin-left: 1.5rem;
+}
+
+.calculator-input {
+  width: 60%;
+  padding-left: 0.5rem;
+  border-radius: 0.4rem;
+  border: 1px solid black;
+}
+
+.form-padding {
+  padding: 0.45rem 0;
+}
+
+.calculator-button-wrapper {
+  padding: 1rem;
+}
+
+.calculator-button {
+  border: none;
+  color: white;
+  background-color: #0d6efd;
+  padding: 0.75rem;
+  border-radius: 0.35rem;
+  transition: 0.3s;
+}
+
+.calculator-button:hover {
+  background-color: white;
+  color: black;
+  border: 1px solid black;
+}

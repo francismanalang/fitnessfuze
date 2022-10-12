@@ -58,7 +58,7 @@ export default class AuthPage extends React.Component {
             </div>
             {modalShow()}
           </div>
-          <h3 className='log-in-text'>Document your fitness journey</h3>
+          <h3 className='log-in-text'>Track your fitness journey</h3>
           <button className='log-in-button' onClick={this.handleSignUpClick}>Start</button>
         </div>
         </>
