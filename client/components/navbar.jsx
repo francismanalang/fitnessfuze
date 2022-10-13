@@ -26,6 +26,11 @@ export default class Navbar extends React.Component {
                     Start
                   </a>
                 </div>
+                <div className='calculator-wrapper'>
+                  <a className='navbar-calculator' href='#calculator'>
+                    1RM
+                  </a>
+                </div>
               </div>
               {user !== null &&
                 <button className="btn btn-dark" onClick={handleSignOut} href='#sign-in'>
@@ -47,6 +52,11 @@ export default class Navbar extends React.Component {
               <div className='start-wrapper-icon'>
                 <a className='navbar-start' href='#'>
                   <i className="fa-solid fa-dumbbell fa-3x"></i>
+                </a>
+              </div>
+              <div className='calculator-wrapper-icon'>
+                <a className='navbar-calculator' href="#calculator">
+                  <i className='fa-solid fa-calculator fa-3x'></i>
                 </a>
               </div>
             </div>

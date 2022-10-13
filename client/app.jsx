@@ -2,6 +2,7 @@ import React from 'react';
 import StartPage from './pages/start-page';
 import AddExercisePage from './pages/add-exercises';
 import AuthPage from './pages/auth';
+import Calculator from './pages/calculator';
 import AppContext from './lib/app-context';
 import parseRoute from './lib/parse-route';
 import Navbar from './components/navbar';
@@ -54,6 +55,9 @@ export default class App extends React.Component {
     if (route.path === 'workouts') {
       const workoutId = route.params.get('workoutId');
       return <AddExercisePage workoutId={workoutId} />;
+    }
+    if (route.path === 'calculator') {
+      return <Calculator />;
     }
   }
 

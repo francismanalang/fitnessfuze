@@ -323,7 +323,12 @@
 
 .start-wrapper {
   margin-top: 0.47rem;
-  margin-right: 1.5rem;
+  margin-right: 1.8rem;
+}
+
+.calculator-wrapper {
+  margin-top: 0.47rem;
+  margin-right: 1.8rem;
 }
 
 .navbar-start {
@@ -332,9 +337,15 @@
   color: white;
 }
 
+.navbar-calculator {
+  font-family: "Lucida Grande", sans-serif;
+  text-decoration: none;
+  color: white;
+}
+
 .profile-wrapper {
   margin-top: 0.47rem;
-  margin-right: 2.25rem;
+  margin-right: 1.8rem;
 }
 
 .navbar-profile {
@@ -344,7 +355,8 @@
 }
 
 .navbar-profile:hover,
-.navbar-start:hover {
+.navbar-start:hover,
+.navbar-calculator:hover {
   text-decoration: underline;
 }
 
@@ -454,4 +466,65 @@
 
 .hidden {
   display: none;
+}
+
+.calculator-heading {
+  padding: 1rem;
+  padding-bottom: 0;
+  text-decoration: underline;
+  font-weight: bold;
+}
+
+.calulator-text {
+  padding: 0 2rem;
+  font-size: 1.1rem;
+  max-width: 42rem;
+  margin: auto;
+}
+
+.calculator-form {
+  padding: 1rem;
+}
+
+.calculator-label {
+  font-weight: bold;
+  padding-right: 0.75rem;
+}
+
+.label-weight {
+  margin-left: 2.2rem;
+}
+
+.calculator-input {
+  width: 60%;
+  padding-left: 0.5rem;
+  border-radius: 0.4rem;
+  border: 1px solid black;
+}
+
+.form-padding {
+  padding: 0.45rem 0;
+}
+
+.calculator-button-wrapper {
+  padding: 1rem;
+}
+
+.calculator-button {
+  border: none;
+  color: white;
+  background-color: #0d6efd;
+  padding: 0.75rem;
+  border-radius: 0.35rem;
+  transition: 0.3s;
+}
+
+.calculator-button:hover {
+  background-color: white;
+  color: black;
+  border: 1px solid black;
+}
+
+.fa-calculator:hover {
+  color: #1258ca;
 }
