@@ -1,21 +1,26 @@
 import React from 'react';
 import Redirect from '../components/redirect';
 import AppContext from '../lib/app-context';
+// import BarChart from '../components/barchart';
 
 export default class Calculator extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       weight: 1,
-      reps: 1
+      reps: 1,
+      oneRepMax: null
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleWeightChange = this.handleWeightChange.bind(this);
     this.handleRepetitionChange = this.handleRepetitionChange.bind(this);
+    this.oneRepMaxCalculator = this.oneRepMaxCalculator.bind(this);
   }
 
   handleSubmit(event) {
     event.preventDefault();
+    const { weight, reps } = this.state;
+    this.oneRepMaxCalculator(weight, reps);
   }
 
   handleWeightChange(event) {
@@ -26,9 +31,31 @@ export default class Calculator extends React.Component {
     this.setState({ reps: event.target.value });
   }
 
+  oneRepMaxCalculator(weight, reps) {
+    if (reps <= 10) {
+      const oneRepMax = weight * (36 / (37 - reps));
+      this.setState({ oneRepMax });
+    } else {
+      const oneRepMax = weight * (1 + 0.0333 * reps);
+      this.setState({ oneRepMax });
+    }
+  }
+
   render() {
     const { user } = this.context;
+    const { oneRepMax } = this.state;
     if (!user) return <Redirect to="" />;
+    // const chartData = {
+    //   labels: [2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022],
+    //   datasets: [{
+    //     label: 'Users Gained',
+    //     data: [202, 202, 387, 876, 254, 463, 253, 574]
+    //   }]
+    // };
+
+    const oneRepMaxText = oneRepMax === null || oneRepMax === 0
+      ? 'hidden'
+      : '';
 
     return (
       <>
@@ -49,6 +76,8 @@ export default class Calculator extends React.Component {
             <button type='submit' className='calculator-button font-family'>Calculate One Rep Max</button>
           </div>
         </form>
+        <h2 className={`text-align-center ${oneRepMaxText}`}>Your One Rep Max is: {Number(oneRepMax).toFixed(0)}</h2>
+        {/* <BarChart chartData={chartData}/> */}
       </>
     );
   }
