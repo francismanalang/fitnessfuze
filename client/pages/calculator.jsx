@@ -69,7 +69,7 @@ export default class Calculator extends React.Component {
             <input required className='calculator-input' type="number" name='weight' id='weight' min={1} onChange={this.handleWeightChange} value={this.state.weight}/>
           </div>
           <div className='form-padding'>
-            <label className='calculator-label' htmlFor="repetition">Repetition</label>
+            <label className='calculator-label' htmlFor="repetition">Repetitions</label>
             <input required className='calculator-input' type="number" name='repetition' id='repetition' min={1} onChange={this.handleRepetitionChange} value={this.state.reps}/>
           </div>
           <div className='calculator-button-wrapper'>
