@@ -1,7 +1,10 @@
 import React from 'react';
 import Redirect from '../components/redirect';
 import AppContext from '../lib/app-context';
-// import BarChart from '../components/barchart';
+import BarChart from '../components/barchart';
+import Chart from 'chart.js/auto';
+import { CategoryScale } from 'chart.js';
+Chart.register(CategoryScale);
 
 export default class Calculator extends React.Component {
   constructor(props) {
@@ -45,13 +48,13 @@ export default class Calculator extends React.Component {
     const { user } = this.context;
     const { oneRepMax } = this.state;
     if (!user) return <Redirect to="" />;
-    // const chartData = {
-    //   labels: [2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022],
-    //   datasets: [{
-    //     label: 'Users Gained',
-    //     data: [202, 202, 387, 876, 254, 463, 253, 574]
-    //   }]
-    // };
+    const chartData = {
+      labels: [Number(oneRepMax).toFixed(0), (oneRepMax * 0.97).toFixed(0), (oneRepMax * 0.94).toFixed(0), (oneRepMax * 0.92).toFixed(0), (oneRepMax * 0.89).toFixed(0), (oneRepMax * 0.86).toFixed(0), (oneRepMax * 0.83).toFixed(0), (oneRepMax * 0.81).toFixed(0), (oneRepMax * 0.78).toFixed(0), (oneRepMax * 0.75).toFixed(0)],
+      datasets: [{
+        label: '# of repititions based on 1RM',
+        data: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+      }]
+    };
 
     const oneRepMaxText = oneRepMax === null || oneRepMax === 0
       ? 'hidden'
@@ -77,7 +80,9 @@ export default class Calculator extends React.Component {
           </div>
         </form>
         <h2 className={`text-align-center ${oneRepMaxText}`}>Your One Rep Max is: {Number(oneRepMax).toFixed(0)}</h2>
-        {/* <BarChart chartData={chartData}/> */}
+        <div className={`barchart-div ${oneRepMaxText}`}>
+          <BarChart chartData={chartData}/>
+        </div>
       </>
     );
   }

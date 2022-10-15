@@ -527,3 +527,9 @@
 .fa-calculator:hover {
   color: #1258ca;
 }
+
+.barchart-div {
+  width: 80%;
+  margin: auto;
+  padding-bottom: 5rem;
+}
