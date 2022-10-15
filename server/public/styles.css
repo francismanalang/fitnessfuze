@@ -496,7 +496,6 @@
 }
 
 .calculator-input {
-  width: 60%;
   padding-left: 0.5rem;
   border-radius: 0.4rem;
   border: 1px solid black;
@@ -527,4 +526,10 @@
 
 .fa-calculator:hover {
   color: #1258ca;
+}
+
+.barchart-div {
+  width: 80%;
+  margin: auto;
+  padding-bottom: 5rem;
 }
