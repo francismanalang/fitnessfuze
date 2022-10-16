@@ -49,10 +49,11 @@ export default class Calculator extends React.Component {
     const { oneRepMax } = this.state;
     if (!user) return <Redirect to="" />;
     const chartData = {
-      labels: [Number(oneRepMax).toFixed(0), (oneRepMax * 0.97).toFixed(0), (oneRepMax * 0.94).toFixed(0), (oneRepMax * 0.92).toFixed(0), (oneRepMax * 0.89).toFixed(0), (oneRepMax * 0.86).toFixed(0), (oneRepMax * 0.83).toFixed(0), (oneRepMax * 0.81).toFixed(0), (oneRepMax * 0.78).toFixed(0), (oneRepMax * 0.75).toFixed(0)],
+      labels: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
       datasets: [{
-        label: '# of repititions based on 1RM',
-        data: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+        label: 'Projected repititions based on 1RM',
+        data: [Number(oneRepMax).toFixed(0), (oneRepMax * 0.97).toFixed(0), (oneRepMax * 0.94).toFixed(0), (oneRepMax * 0.92).toFixed(0), (oneRepMax * 0.89).toFixed(0), (oneRepMax * 0.86).toFixed(0), (oneRepMax * 0.83).toFixed(0), (oneRepMax * 0.81).toFixed(0), (oneRepMax * 0.78).toFixed(0), (oneRepMax * 0.75).toFixed(0)],
+        backgroundColor: ['#5CA2BE', '#135487', '#2A4353', '#989DA4', '#05F2F2', '#04BFBF', '#2E0927', '#A60201', '#FF8C00', '#04756F']
       }]
     };
 
