@@ -23,6 +23,7 @@ Try the application live here: [Dokku deployment](https://fitnessfuze.francisman
 * HTML5
 * CSS3
 * Bootstrap
+* Chart.js
 * Babel
 * Argon2
 * dotenv
