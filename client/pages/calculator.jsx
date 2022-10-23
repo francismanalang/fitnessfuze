@@ -64,7 +64,7 @@ export default class Calculator extends React.Component {
     return (
       <>
         <div className='text-align-center font-family'>
-          <h1 className='calculator-heading'>One Rep Max Calculator</h1>
+          <h1 className='calculator-heading'>One-Rep Max Calculator</h1>
           <p className='calulator-text'>Calculate your one-rep max (1RM) for any lift. Your one-rep max is the max weight you can lift for a single repitition for a given exercise.</p>
         </div>
         <form className='calculator-form text-align-center' onSubmit={ this.handleSubmit }>
@@ -77,10 +77,10 @@ export default class Calculator extends React.Component {
             <input required className='calculator-input' type="number" name='repetition' id='repetition' min={1} onChange={this.handleRepetitionChange} value={this.state.reps}/>
           </div>
           <div className='calculator-button-wrapper'>
-            <button type='submit' className='calculator-button font-family'>Calculate One Rep Max</button>
+            <button type='submit' className='calculator-button font-family'>Calculate One-Rep Max</button>
           </div>
         </form>
-        <h2 className={`text-align-center ${oneRepMaxText}`}>Your One Rep Max is: {Number(oneRepMax).toFixed(0)}</h2>
+        <h2 className={`text-align-center ${oneRepMaxText}`}>Your One-Rep Max is: {Number(oneRepMax).toFixed(0)}</h2>
         <div className={`barchart-div ${oneRepMaxText}`}>
           <BarChart chartData={chartData}/>
         </div>
