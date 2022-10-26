@@ -41,6 +41,7 @@ Try the application live here: [Dokku deployment](https://fitnessfuze.francisman
 * User can sign up
 * User can sign in
 * User can sign out
+* User can calculate one rep max
 
 ## Preview
 
@@ -56,8 +57,8 @@ Try the application live here: [Dokku deployment](https://fitnessfuze.francisman
 
 ## Features in Development
 
-* User can calculate one rep max
 * User can delete an exercise
+* User can view all sets
 
 ## Development
 
