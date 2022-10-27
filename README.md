@@ -20,10 +20,10 @@ Try the application live here: [Dokku deployment](https://fitnessfuze.francisman
 * PostgreSQL
 * Webpack
 * JavaScript (ES6)
+* Chart.js
 * HTML5
 * CSS3
 * Bootstrap
-* Chart.js
 * Babel
 * Argon2
 * dotenv
@@ -34,7 +34,7 @@ Try the application live here: [Dokku deployment](https://fitnessfuze.francisman
 
 * User can start a workout
 * User can add exercises to a workout
-* User can edit reps and weight to a set
+* User can modify reps and weight to a set
 * User can add a set
 * User can save a workout
 * User can view finished workouts
