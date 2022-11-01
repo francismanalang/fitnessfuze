@@ -22,7 +22,7 @@ export default class AddExercisePage extends React.Component {
   }
 
   componentDidMount() {
-    const token = window.localStorage.getItem('react-context-jwt');
+    const token = window.localStorage.getItem('fitnessfuze-jwt');
     fetch('/workouts/start', {
       method: 'GET',
       headers: {
@@ -38,7 +38,7 @@ export default class AddExercisePage extends React.Component {
   }
 
   handleSaveWorkout() {
-    const token = window.localStorage.getItem('react-context-jwt');
+    const token = window.localStorage.getItem('fitnessfuze-jwt');
     const { exercises } = this.state;
     const filteredExercises = exercises.map(exercise => { return { ...exercise, sets: exercise.sets.filter(set => set.isCompleted === true && set !== undefined) }; });
     fetch(`/workouts/start/${this.props.workoutId}`, {
@@ -126,7 +126,7 @@ export default class AddExercisePage extends React.Component {
   }
 
   render() {
-    const { exercises, workouts, saveModalOpen } = this.state;
+    const { exercises, saveModalOpen } = this.state;
     const saveButton = exercises.length > 0
       ? ''
       : 'hidden';
@@ -190,7 +190,7 @@ export default class AddExercisePage extends React.Component {
     });
     return (
       <>
-        <h1 className='workout-text'>Workout #{workouts.length}</h1>
+        <h1 className='workout-text'>Workout Log</h1>
         <div className='exercises-button-container'>
           <button type="button" className="btn btn-primary exercises-button" data-bs-toggle="modal" data-bs-target="#exerciseNameModal">Add an exercise</button>
         </div>
