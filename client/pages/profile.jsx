@@ -12,7 +12,7 @@ export default class Profile extends React.Component {
   }
 
   componentDidMount() {
-    const token = window.localStorage.getItem('react-context-jwt');
+    const token = window.localStorage.getItem('fitnessfuze-jwt');
     fetch('/workouts/start', {
       method: 'GET',
       headers: {
@@ -43,7 +43,7 @@ export default class Profile extends React.Component {
     const hideNoWorkouts = isLoading
       ? 'hidden'
       : '';
-    const workoutsReverse = workouts.reverse();
+    const workoutsReverse = workouts.reverse().filter(workout => workout.exercises.length !== 0);
     const allWorkouts = workoutsReverse.map((workout, workoutIndex) => {
       const date = workout.createdAt.slice(0, 10);
       const allExercises = workout.exercises.map((exercise, exerciseIndex) => {
@@ -71,7 +71,7 @@ export default class Profile extends React.Component {
       return (
         <div key={workoutIndex} className="workout-history-container">
           <div className='workout-history-header'>
-            <h3 className='workout-number-text text-align-center'>Workout #{workouts.findIndex(workout => workout.workoutId === workouts.reverse()[workoutIndex].workoutId) + 1}</h3>
+            <h3 className='workout-number-text text-align-center'>Workout #{workoutsReverse.findIndex(workout => workout.workoutId === workoutsReverse.reverse()[workoutIndex].workoutId) + 1}</h3>
             <p className='text-align-center'>{date}</p>
           </div>
           <div className='set-exercise-container'>
@@ -89,7 +89,7 @@ export default class Profile extends React.Component {
       <div className='profile-container'>
         <div className='profile-wrapper-workouts text-align-center'>
           <h1>{username}</h1>
-          <p>Total Workouts: {workouts.length}</p>
+          <p>Total Workouts: {workoutsReverse.length}</p>
         </div>
       </div>
         <h1 className='text-align-center workout-history-text'>Workout History</h1>

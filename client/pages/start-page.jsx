@@ -9,7 +9,7 @@ export default class StartPage extends React.Component {
   }
 
   startWorkoutClick() {
-    const token = window.localStorage.getItem('react-context-jwt');
+    const token = window.localStorage.getItem('fitnessfuze-jwt');
     fetch('/workouts/start', {
       method: 'POST',
       headers: {
