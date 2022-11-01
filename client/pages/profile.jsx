@@ -32,9 +32,11 @@ export default class Profile extends React.Component {
 
     if (!user) return <Redirect to="" />;
 
-    const username = user === null ? '' : user.username;
     const { isLoading, workouts } = this.state;
-    const noWorkouts = workouts.length === 0
+    const username = user === null ? '' : user.username;
+    const workoutsFiltered = workouts.filter(workout => workout.exercises.length !== 0);
+    const workoutsReversed = workoutsFiltered.reverse();
+    const noWorkouts = workoutsReversed.length === 0
       ? ''
       : 'hidden';
     const loadingSpinner = isLoading
@@ -43,13 +45,12 @@ export default class Profile extends React.Component {
     const hideNoWorkouts = isLoading
       ? 'hidden'
       : '';
-    const workoutsReverse = workouts.reverse().filter(workout => workout.exercises.length !== 0);
-    const allWorkouts = workoutsReverse.map((workout, workoutIndex) => {
+    const allWorkouts = workoutsReversed.map((workout, workoutIndex) => {
       const date = workout.createdAt.slice(0, 10);
       const allExercises = workout.exercises.map((exercise, exerciseIndex) => {
         const setsLength = exercise.sets.length;
         const topWeight = Math.max(...exercise.sets.map(set => set.weight));
-        const topSet = [...exercise.sets.filter(set => Number(set.weight) === topWeight)];
+        const topSet = exercise.sets.filter(set => Number(set.weight) === topWeight);
         const topSetReps = topSet.length === 0 ? 0 : topSet[0].reps;
         const topSetWeight = topSet.length === 0 ? 0 : topSet[0].weight;
         const repText = topSetReps > 1 ? 'reps' : 'rep';
@@ -71,7 +72,7 @@ export default class Profile extends React.Component {
       return (
         <div key={workoutIndex} className="workout-history-container">
           <div className='workout-history-header'>
-            <h3 className='workout-number-text text-align-center'>Workout #{workoutsReverse.findIndex(workout => workout.workoutId === workoutsReverse.reverse()[workoutIndex].workoutId) + 1}</h3>
+            <h3 className='workout-number-text text-align-center'>Workout #{Math.abs(workoutsReversed.findIndex(workout => workout.workoutId === workoutsReversed[workoutIndex].workoutId) - workoutsReversed.length)}</h3>
             <p className='text-align-center'>{date}</p>
           </div>
           <div className='set-exercise-container'>
@@ -89,7 +90,7 @@ export default class Profile extends React.Component {
       <div className='profile-container'>
         <div className='profile-wrapper-workouts text-align-center'>
           <h1>{username}</h1>
-          <p>Total Workouts: {workoutsReverse.length}</p>
+          <p>Total Workouts: {workoutsReversed.length}</p>
         </div>
       </div>
         <h1 className='text-align-center workout-history-text'>Workout History</h1>
